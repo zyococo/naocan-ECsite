@@ -290,7 +290,7 @@ const Reservation = () => {
 
             <button
               onClick={resetForm}
-              className="bg-primary-purple hover:bg-purple-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors duration-200"
+              className="bg-primary-dark-green hover:bg-primary-navy text-white px-8 py-3 font-semibold transition-colors duration-300 tracking-wider border border-primary-gold/30"
             >
               新しい予約
             </button>
@@ -304,7 +304,7 @@ const Reservation = () => {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-primary-purple border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-16 h-16 border-4 border-primary-dark-green border-t-transparent animate-spin mx-auto mb-4"></div>
           <p className="text-gray-600">予約枠を読み込み中...</p>
         </div>
       </div>
@@ -314,10 +314,10 @@ const Reservation = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-preserved-rose to-pink-700 text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">ガイド予約</h1>
-          <p className="text-xl mb-8 max-w-2xl mx-auto">
+      <section className="bg-primary-dark-green text-white py-20 border-b border-primary-gold/30">
+        <div className="max-w-6xl mx-auto px-6 text-center">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 tracking-wider">ガイド予約</h1>
+          <p className="text-xl mb-8 max-w-2xl mx-auto tracking-wide">
             花器から花言葉まで、お客様の好みに合わせたオリジナルプリザーブドフラワー制作体験をご予約いただけます。
           </p>
         </div>
@@ -569,11 +569,11 @@ const Reservation = () => {
                   <button
                     type="submit"
                     disabled={status === 'sending'}
-                    className="bg-gradient-to-r from-preserved-rose to-pink-700 text-white px-8 py-4 rounded-full font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center gap-2 mx-auto disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                    className="bg-primary-dark-green hover:bg-primary-navy text-white px-12 py-4 font-semibold transition-all duration-300 flex items-center gap-2 mx-auto disabled:opacity-50 disabled:cursor-not-allowed tracking-wider border border-primary-gold/30"
                   >
                     {status === 'sending' ? (
                       <>
-                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                        <div className="w-5 h-5 border-2 border-white border-t-transparent animate-spin" />
                         予約送信中...
                       </>
                     ) : (

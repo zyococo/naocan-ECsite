@@ -395,7 +395,7 @@ const BuddhistFlowers = () => {
                         {/* Badges */}
                         <div className="absolute top-3 left-3 flex flex-col gap-2">
                           {product.isSale && (
-                            <span className="px-2 py-1 bg-red-500 text-white text-xs font-bold rounded-full">
+                            <span className="px-3 py-1 bg-primary-sakura text-text-dark text-xs font-bold">
                               セール
                             </span>
                           )}

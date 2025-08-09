@@ -45,7 +45,7 @@ const Categories = () => {
                   alt={category.title}
                   className="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-700"
                 />
-                <div className={`absolute inset-0 bg-gradient-to-t ${category.color} opacity-70 group-hover:opacity-80 transition-opacity duration-300`}></div>
+                <div className="absolute inset-0 bg-primary-dark-green/70 group-hover:bg-primary-dark-green/80 transition-colors duration-300"></div>
               </div>
               
               <div className="absolute inset-0 flex flex-col justify-end p-8 text-white">

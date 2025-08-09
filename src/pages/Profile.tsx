@@ -249,7 +249,7 @@ const Profile = () => {
                       <p className="text-sm text-gray-600 mb-1">{stat.label}</p>
                       <p className="text-2xl font-bold text-charcoal">{stat.value}</p>
                     </div>
-                    <div className={`w-12 h-12 rounded-full bg-gradient-to-r ${stat.color} flex items-center justify-center text-white`}>
+                    <div className="w-12 h-12 bg-primary-dark-green flex items-center justify-center text-white">
                       {stat.icon}
                     </div>
                   </div>

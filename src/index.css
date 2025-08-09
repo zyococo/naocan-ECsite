@@ -1,3 +1,31 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700&display=swap");
+@import "remixicon/fonts/remixicon.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    font-family: "Noto Serif JP", "游明朝", "Yu Mincho", "Hiragino Mincho ProN",
+      serif;
+  }
+
+  body {
+    background-color: #fefdf8;
+    color: #1a1a1a;
+    line-height: 1.7;
+    letter-spacing: 0.02em;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    margin-bottom: 1rem;
+  }
+}

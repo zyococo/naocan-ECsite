@@ -103,17 +103,17 @@ const ContactForm = () => {
 
   if (status === 'success') {
     return (
-      <div className="bg-white rounded-2xl shadow-lg p-8">
+      <div className="bg-white border border-border-light p-8">
         <div className="text-center">
-          <CheckCircle size={64} className="mx-auto text-green-500 mb-6" />
-          <h3 className="text-2xl font-bold text-charcoal mb-4">送信完了</h3>
-          <p className="text-lg text-gray-600 mb-6">
+          <CheckCircle size={64} className="mx-auto text-primary-dark-green mb-8" />
+          <h3 className="text-2xl font-bold text-text-dark mb-4 tracking-wider">送信完了</h3>
+          <p className="text-lg text-text-gray mb-8 tracking-wide">
             お問い合わせありがとうございます。<br />
             内容を確認の上、代表 挾間 健二より3営業日以内にご連絡いたします。
           </p>
-          <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
-            <h4 className="font-semibold text-green-800 mb-2">送信内容</h4>
-            <div className="text-sm text-green-700 space-y-1">
+          <div className="bg-soft-green border border-primary-dark-green/20 p-4 mb-8">
+            <h4 className="font-semibold text-primary-dark-green mb-3 tracking-wide">送信内容</h4>
+            <div className="text-sm text-text-dark space-y-2 tracking-wide">
               <p><strong>お名前:</strong> {formData.name}</p>
               <p><strong>メールアドレス:</strong> {formData.email}</p>
               {formData.phone && <p><strong>電話番号:</strong> {formData.phone}</p>}
@@ -122,7 +122,7 @@ const ContactForm = () => {
           </div>
           <button
             onClick={() => setStatus('idle')}
-            className="bg-primary-purple hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200"
+            className="bg-primary-dark-green hover:bg-primary-navy text-white px-8 py-3 font-semibold transition-colors duration-300 tracking-wider border border-primary-gold/30"
           >
             新しいお問い合わせ
           </button>
@@ -132,22 +132,22 @@ const ContactForm = () => {
   }
 
   return (
-    <div className="bg-white rounded-2xl shadow-lg p-8">
+    <div className="bg-white border border-border-light p-8">
       <form onSubmit={handleSubmit} className="space-y-6">
         {status === 'error' && (
-          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg flex items-start">
+          <div className="bg-primary-sakura/20 border border-primary-sakura text-primary-dark-green px-4 py-3 flex items-start">
             <AlertCircle size={20} className="mr-3 mt-0.5 flex-shrink-0" />
-            <span>{errorMessage}</span>
+            <span className="tracking-wide">{errorMessage}</span>
           </div>
         )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-              お名前 <span className="text-red-500">*</span>
+            <label htmlFor="name" className="block text-sm font-medium text-text-dark mb-2 tracking-wide">
+              お名前 <span className="text-primary-sakura">*</span>
             </label>
             <div className="relative">
-              <User className="absolute left-3 top-3 text-gray-400" size={20} />
+              <User className="absolute left-3 top-3 text-text-gray" size={20} />
               <input
                 type="text"
                 id="name"
@@ -156,18 +156,18 @@ const ContactForm = () => {
                 value={formData.name}
                 onChange={handleInputChange}
                 disabled={status === 'sending'}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
+                className="w-full pl-10 pr-4 py-3 border border-border-light focus:outline-none focus:ring-2 focus:ring-primary-dark-green focus:border-transparent disabled:bg-soft-green disabled:cursor-not-allowed tracking-wide"
                 placeholder="山田 太郎"
               />
             </div>
           </div>
 
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-              メールアドレス <span className="text-red-500">*</span>
+            <label htmlFor="email" className="block text-sm font-medium text-text-dark mb-2 tracking-wide">
+              メールアドレス <span className="text-primary-sakura">*</span>
             </label>
             <div className="relative">
-              <Mail className="absolute left-3 top-3 text-gray-400" size={20} />
+              <Mail className="absolute left-3 top-3 text-text-gray" size={20} />
               <input
                 type="email"
                 id="email"
@@ -176,7 +176,7 @@ const ContactForm = () => {
                 value={formData.email}
                 onChange={handleInputChange}
                 disabled={status === 'sending'}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
+                className="w-full pl-10 pr-4 py-3 border border-border-light focus:outline-none focus:ring-2 focus:ring-primary-dark-green focus:border-transparent disabled:bg-soft-green disabled:cursor-not-allowed tracking-wide"
                 placeholder="example@email.com"
               />
             </div>
@@ -185,11 +185,11 @@ const ContactForm = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="phone" className="block text-sm font-medium text-text-dark mb-2 tracking-wide">
               電話番号
             </label>
             <div className="relative">
-              <Phone className="absolute left-3 top-3 text-gray-400" size={20} />
+              <Phone className="absolute left-3 top-3 text-text-gray" size={20} />
               <input
                 type="tel"
                 id="phone"
@@ -197,15 +197,15 @@ const ContactForm = () => {
                 value={formData.phone}
                 onChange={handleInputChange}
                 disabled={status === 'sending'}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
+                className="w-full pl-10 pr-4 py-3 border border-border-light focus:outline-none focus:ring-2 focus:ring-primary-dark-green focus:border-transparent disabled:bg-soft-green disabled:cursor-not-allowed tracking-wide"
                 placeholder="090-1234-5678"
               />
             </div>
           </div>
 
           <div>
-            <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
-              お問い合わせ種別 <span className="text-red-500">*</span>
+            <label htmlFor="subject" className="block text-sm font-medium text-text-dark mb-2 tracking-wide">
+              お問い合わせ種別 <span className="text-primary-sakura">*</span>
             </label>
             <select
               id="subject"
@@ -214,7 +214,7 @@ const ContactForm = () => {
               value={formData.subject}
               onChange={handleInputChange}
               disabled={status === 'sending'}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
+              className="w-full px-4 py-3 border border-border-light focus:outline-none focus:ring-2 focus:ring-primary-dark-green focus:border-transparent disabled:bg-soft-green disabled:cursor-not-allowed tracking-wide"
             >
               <option value="">選択してください</option>
               <option value="product">商品について</option>
@@ -228,11 +228,11 @@ const ContactForm = () => {
         </div>
 
         <div>
-          <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-            お問い合わせ内容 <span className="text-red-500">*</span>
+          <label htmlFor="message" className="block text-sm font-medium text-text-dark mb-2 tracking-wide">
+            お問い合わせ内容 <span className="text-primary-sakura">*</span>
           </label>
           <div className="relative">
-            <MessageSquare className="absolute left-3 top-3 text-gray-400" size={20} />
+            <MessageSquare className="absolute left-3 top-3 text-text-gray" size={20} />
             <textarea
               id="message"
               name="message"
@@ -241,7 +241,7 @@ const ContactForm = () => {
               value={formData.message}
               onChange={handleInputChange}
               disabled={status === 'sending'}
-              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent resize-none disabled:bg-gray-100 disabled:cursor-not-allowed"
+              className="w-full pl-10 pr-4 py-3 border border-border-light focus:outline-none focus:ring-2 focus:ring-primary-dark-green focus:border-transparent resize-none disabled:bg-soft-green disabled:cursor-not-allowed tracking-wide"
               placeholder="お問い合わせ内容をご記入ください..."
             />
           </div>
@@ -251,7 +251,7 @@ const ContactForm = () => {
           <button
             type="submit"
             disabled={status === 'sending'}
-            className="bg-gradient-to-r from-primary-purple to-primary-gold text-white px-8 py-4 rounded-full font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center gap-2 mx-auto disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+            className="bg-primary-dark-green hover:bg-primary-navy text-white px-12 py-4 font-semibold transition-all duration-300 flex items-center gap-2 mx-auto disabled:opacity-50 disabled:cursor-not-allowed tracking-wider border border-primary-gold/30"
           >
             {status === 'sending' ? (
               <>
@@ -268,7 +268,7 @@ const ContactForm = () => {
         </div>
 
         {/* 注意事項 */}
-        <div className="text-center text-sm text-gray-500 mt-4">
+        <div className="text-center text-sm text-text-gray mt-6 tracking-wide">
           <p>※ 送信いただいた内容は、naokan.buddhaflower@icloud.com に届きます</p>
           <p>※ 代表 挾間 健二より3営業日以内にご返信いたします</p>
         </div>

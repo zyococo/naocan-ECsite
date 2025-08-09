@@ -53,13 +53,13 @@ const Login = () => {
   }, [state.isAuthenticated, navigate, from]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-bg-cream to-white flex items-center justify-center px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-6">
+    <div className="min-h-screen bg-bg-cream flex items-center justify-center px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8">
         {/* Back to Home */}
         <div>
           <Link
             to="/"
-            className="inline-flex items-center text-primary-purple hover:text-purple-700 transition-colors duration-200"
+            className="inline-flex items-center text-primary-dark-green hover:text-primary-navy transition-colors duration-300 tracking-wide"
           >
             <ArrowLeft size={20} className="mr-2" />
             ホームに戻る
@@ -68,8 +68,8 @@ const Login = () => {
 
         {/* Header */}
         <div className="text-center">
-          <div className="flex justify-center mb-6">
-            <div className="w-16 h-16 rounded-full overflow-hidden flex items-center justify-center">
+          <div className="flex justify-center mb-8">
+            <div className="w-20 h-20 overflow-hidden flex items-center justify-center">
               <img 
                 src="/naocan-logo-copy.jpeg" 
                 alt="naocan logo" 
@@ -77,27 +77,27 @@ const Login = () => {
               />
             </div>
           </div>
-          <h2 className="text-3xl font-bold text-charcoal mb-2">ログイン</h2>
-          <p className="text-gray-600">
+          <h2 className="text-3xl font-bold text-text-dark mb-3 tracking-wider">ログイン</h2>
+          <p className="text-text-gray tracking-wide">
             アカウントにログインして、お買い物をお楽しみください
           </p>
         </div>
 
         {/* Login Form */}
-        <div className="bg-white rounded-2xl shadow-lg p-8">
+        <div className="bg-white border border-border-light p-8">
           <form onSubmit={handleSubmit} className="space-y-6">
             {error && (
-              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+              <div className="bg-primary-sakura/20 border border-primary-sakura text-primary-dark-green px-4 py-3 text-sm">
                 {error}
               </div>
             )}
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="email" className="block text-sm font-medium text-text-dark mb-2 tracking-wide">
                 メールアドレス
               </label>
               <div className="relative">
-                <Mail className="absolute left-3 top-3 text-gray-400" size={20} />
+                <Mail className="absolute left-3 top-3 text-text-gray" size={20} />
                 <input
                   type="email"
                   id="email"
@@ -105,18 +105,18 @@ const Login = () => {
                   required
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
+                  className="w-full pl-10 pr-4 py-3 border border-border-light focus:outline-none focus:ring-2 focus:ring-primary-dark-green focus:border-transparent tracking-wide"
                   placeholder="example@email.com"
                 />
               </div>
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="password" className="block text-sm font-medium text-text-dark mb-2 tracking-wide">
                 パスワード
               </label>
               <div className="relative">
-                <Lock className="absolute left-3 top-3 text-gray-400" size={20} />
+                <Lock className="absolute left-3 top-3 text-text-gray" size={20} />
                 <input
                   type={showPassword ? 'text' : 'password'}
                   id="password"
@@ -124,13 +124,13 @@ const Login = () => {
                   required
                   value={formData.password}
                   onChange={handleInputChange}
-                  className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
+                  className="w-full pl-10 pr-12 py-3 border border-border-light focus:outline-none focus:ring-2 focus:ring-primary-dark-green focus:border-transparent tracking-wide"
                   placeholder="パスワードを入力"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
+                  className="absolute right-3 top-3 text-text-gray hover:text-text-dark transition-colors duration-300"
                 >
                   {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
@@ -143,15 +143,15 @@ const Login = () => {
                   id="remember-me"
                   name="remember-me"
                   type="checkbox"
-                  className="h-4 w-4 text-primary-purple focus:ring-primary-purple border-gray-300 rounded"
+                  className="h-4 w-4 text-primary-dark-green focus:ring-primary-dark-green border-border-light"
                 />
-                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700">
+                <label htmlFor="remember-me" className="ml-2 block text-sm text-text-dark tracking-wide">
                   ログイン状態を保持
                 </label>
               </div>
 
               <div className="text-sm">
-                <a href="#" className="text-primary-purple hover:text-purple-700 transition-colors duration-200">
+                <a href="#" className="text-primary-dark-green hover:text-primary-navy transition-colors duration-300 tracking-wide">
                   パスワードを忘れた方
                 </a>
               </div>
@@ -160,10 +160,10 @@ const Login = () => {
             <button
               type="submit"
               disabled={state.isLoading}
-              className="w-full bg-gradient-to-r from-primary-purple to-primary-gold text-white py-3 px-4 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+              className="w-full bg-primary-dark-green hover:bg-primary-navy text-white py-4 px-4 font-semibold transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed tracking-wider border border-primary-gold/30"
             >
               {state.isLoading ? (
-                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                <div className="w-5 h-5 border-2 border-white border-t-transparent animate-spin" />
               ) : (
                 <>
                   <LogIn size={20} />
@@ -174,23 +174,23 @@ const Login = () => {
           </form>
 
           {/* Demo Account Info */}
-          <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-            <h4 className="text-sm font-semibold text-blue-800 mb-2">デモアカウント</h4>
-            <p className="text-xs text-blue-700 mb-2">
+          <div className="mt-8 p-4 bg-soft-green border border-primary-dark-green/20">
+            <h4 className="text-sm font-semibold text-primary-dark-green mb-2 tracking-wide">デモアカウント</h4>
+            <p className="text-xs text-text-gray mb-2 tracking-wide">
               任意のメールアドレスと6文字以上のパスワードでログインできます
             </p>
-            <div className="text-xs text-blue-600">
+            <div className="text-xs text-text-gray">
               <p>例: demo@example.com / password123</p>
             </div>
           </div>
 
           {/* Register Link */}
-          <div className="mt-6 text-center">
-            <p className="text-gray-600">
+          <div className="mt-8 text-center">
+            <p className="text-text-gray tracking-wide">
               アカウントをお持ちでない方は{' '}
               <Link
                 to="/register"
-                className="text-primary-purple hover:text-purple-700 font-semibold transition-colors duration-200"
+                className="text-primary-dark-green hover:text-primary-navy font-semibold transition-colors duration-300 tracking-wide"
               >
                 新規登録
               </Link>

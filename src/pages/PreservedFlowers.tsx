@@ -279,10 +279,10 @@ const PreservedFlowers = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-preserved-rose to-pink-700 text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">プリザーブドフラワー</h1>
-          <p className="text-xl mb-8 max-w-2xl mx-auto">
+      <section className="bg-primary-dark-green text-white py-20 border-b border-primary-gold/30">
+        <div className="max-w-6xl mx-auto px-6 text-center">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 tracking-wider">プリザーブドフラワー</h1>
+          <p className="text-xl mb-8 max-w-2xl mx-auto tracking-wide">
             特別な技術で処理された本物のお花が、長期間美しさを保ち続けます。永遠の美しさをお楽しみください。
           </p>
         </div>
@@ -424,7 +424,7 @@ const PreservedFlowers = () => {
                         {/* Badges */}
                         <div className="absolute top-3 left-3 flex flex-col gap-2">
                           {product.isNew && (
-                            <span className="px-2 py-1 bg-primary-gold text-white text-xs font-bold rounded-full">
+                            <span className="px-3 py-1 bg-primary-gold text-text-dark text-xs font-bold">
                               新作
                             </span>
                           )}

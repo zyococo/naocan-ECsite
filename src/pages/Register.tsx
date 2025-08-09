@@ -235,10 +235,10 @@ const Register = () => {
             <button
               type="submit"
               disabled={state.isLoading}
-              className="w-full bg-gradient-to-r from-primary-purple to-primary-gold text-white py-3 px-4 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+              className="w-full bg-primary-dark-green hover:bg-primary-navy text-white py-4 px-4 font-semibold transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed tracking-wider border border-primary-gold/30"
             >
               {state.isLoading ? (
-                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                <div className="w-5 h-5 border-2 border-white border-t-transparent animate-spin" />
               ) : (
                 <>
                   <UserPlus size={20} />
@@ -250,11 +250,11 @@ const Register = () => {
 
           {/* Login Link */}
           <div className="mt-6 text-center">
-            <p className="text-gray-600">
+            <p className="text-text-gray">
               すでにアカウントをお持ちの方は{' '}
               <Link
                 to="/login"
-                className="text-primary-purple hover:text-purple-700 font-semibold transition-colors duration-200"
+                className="text-primary-dark-green hover:text-primary-navy font-semibold transition-colors duration-300 tracking-wide"
               >
                 ログイン
               </Link>

@@ -82,11 +82,11 @@ const Contact = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-primary-purple to-purple-700 text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">お問い合わせ</h1>
-          <p className="text-xl mb-4">なおかん (naocan)</p>
-          <p className="text-lg mb-8 max-w-2xl mx-auto opacity-90">
+      <section className="bg-primary-dark-green text-white py-20 border-b border-primary-gold/30">
+        <div className="max-w-6xl mx-auto px-6 text-center">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 tracking-wider">お問い合わせ</h1>
+          <p className="text-xl mb-4 tracking-wider">なおかん (naocan)</p>
+          <p className="text-lg mb-8 max-w-2xl mx-auto tracking-wide">
             ご不明な点やご相談など、プリザーブドフラワーのことなら何でもお気軽にお聞かせください。
             代表 挾間 健二が丁寧にお答えいたします。
           </p>
@@ -102,7 +102,7 @@ const Contact = () => {
                 key={index}
                 className="bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
               >
-                <div className={`w-16 h-16 rounded-full bg-gradient-to-r ${info.color} flex items-center justify-center text-white mx-auto mb-6`}>
+                <div className="w-16 h-16 bg-primary-dark-green flex items-center justify-center text-white mx-auto mb-6">
                   {info.icon}
                 </div>
                 <h3 className="text-xl font-bold text-charcoal mb-4">{info.title}</h3>

@@ -241,25 +241,25 @@ const ProductDetail = () => {
                 <div className="flex flex-col sm:flex-row gap-4">
                   <button 
                     onClick={handleAddToCart}
-                    className="flex-1 bg-primary-purple hover:bg-purple-700 text-white py-4 px-6 rounded-full font-semibold transition-colors duration-200 flex items-center justify-center gap-2"
+                    className="flex-1 bg-primary-dark-green hover:bg-primary-navy text-white py-4 px-6 font-semibold transition-colors duration-300 flex items-center justify-center gap-2 tracking-wider border border-primary-gold/30"
                   >
                     <ShoppingCart size={20} />
                     カートに追加
                   </button>
                   <button 
                     onClick={handleToggleFavorite}
-                    className={`p-4 border rounded-full transition-all duration-200 ${
+                    className={`p-4 border transition-all duration-300 ${
                       isFavorite(product.id)
-                        ? 'border-red-500 bg-red-50 hover:bg-red-100'
-                        : 'border-gray-300 hover:bg-gray-50'
+                        ? 'border-primary-sakura bg-primary-sakura/20 hover:bg-primary-sakura/30'
+                        : 'border-border-light hover:bg-soft-green'
                     }`}
                   >
                     <Heart 
                       size={20} 
                       className={`${
                         isFavorite(product.id) 
-                          ? 'text-red-500 fill-red-500' 
-                          : 'text-gray-600'
+                          ? 'text-primary-sakura fill-primary-sakura' 
+                          : 'text-text-gray'
                       }`} 
                     />
                   </button>
@@ -281,24 +281,24 @@ const ProductDetail = () => {
           </div>
 
           {/* Product Specifications */}
-          <div className="mt-16 bg-gray-50 rounded-2xl p-8">
-            <h2 className="text-2xl font-bold text-charcoal mb-6">商品仕様</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="mt-20 bg-soft-green border border-primary-dark-green/20 p-8">
+            <h2 className="text-2xl font-bold text-text-dark mb-8 tracking-wider">商品仕様</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
-                <h3 className="font-semibold text-charcoal mb-2">サイズ</h3>
-                <p className="text-gray-700">{product.specifications.size}</p>
+                <h3 className="font-semibold text-text-dark mb-3 tracking-wide">サイズ</h3>
+                <p className="text-text-gray tracking-wide">{product.specifications.size}</p>
               </div>
               <div>
-                <h3 className="font-semibold text-charcoal mb-2">重量</h3>
-                <p className="text-gray-700">{product.specifications.weight}</p>
+                <h3 className="font-semibold text-text-dark mb-3 tracking-wide">重量</h3>
+                <p className="text-text-gray tracking-wide">{product.specifications.weight}</p>
               </div>
               <div>
-                <h3 className="font-semibold text-charcoal mb-2">素材</h3>
-                <p className="text-gray-700">{product.specifications.materials}</p>
+                <h3 className="font-semibold text-text-dark mb-3 tracking-wide">素材</h3>
+                <p className="text-text-gray tracking-wide">{product.specifications.materials}</p>
               </div>
               <div>
-                <h3 className="font-semibold text-charcoal mb-2">製造国</h3>
-                <p className="text-gray-700">{product.specifications.origin}</p>
+                <h3 className="font-semibold text-text-dark mb-3 tracking-wide">製造国</h3>
+                <p className="text-text-gray tracking-wide">{product.specifications.origin}</p>
               </div>
             </div>
           </div>

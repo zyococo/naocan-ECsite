@@ -248,22 +248,22 @@ const ProductGrid = () => {
                 }`}>
                   <button 
                     onClick={() => handleToggleFavorite(product)}
-                    className="p-2 bg-white bg-opacity-90 rounded-full hover:bg-opacity-100 transition-all duration-200"
+                    className="p-2 bg-white bg-opacity-90 hover:bg-opacity-100 transition-all duration-300"
                   >
                     <Heart 
                       size={16} 
-                      className={`transition-colors duration-200 ${
+                      className={`transition-colors duration-300 ${
                         isFavorite(product.id) 
-                          ? 'text-red-500 fill-red-500' 
-                          : 'text-gray-600 hover:text-red-500'
+                          ? 'text-primary-sakura fill-primary-sakura' 
+                          : 'text-text-gray hover:text-primary-sakura'
                       }`} 
                     />
                   </button>
                   <Link
                     to={`/product/${product.id}`}
-                    className="p-2 bg-white bg-opacity-90 rounded-full hover:bg-opacity-100 transition-all duration-200"
+                    className="p-2 bg-white bg-opacity-90 hover:bg-opacity-100 transition-all duration-300"
                   >
-                    <Eye size={16} className="text-gray-600 hover:text-primary-purple" />
+                    <Eye size={16} className="text-text-gray hover:text-primary-dark-green" />
                   </Link>
                 </div>
 
@@ -273,7 +273,7 @@ const ProductGrid = () => {
                 }`}>
                   <button 
                     onClick={() => handleAddToCart(product)}
-                    className="w-full bg-primary-purple hover:bg-purple-700 text-white py-2 px-4 rounded-full font-medium transition-colors duration-200 flex items-center justify-center gap-2"
+                    className="w-full bg-primary-dark-green hover:bg-primary-navy text-white py-3 px-4 font-medium transition-colors duration-300 flex items-center justify-center gap-2 tracking-wide"
                   >
                     <ShoppingCart size={16} />
                     カートに追加
@@ -329,8 +329,8 @@ const ProductGrid = () => {
         </div>
 
         {/* Load More Button */}
-        <div className="text-center mt-12">
-          <button className="bg-gradient-to-r from-primary-purple to-primary-gold text-white px-8 py-4 rounded-full font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300">
+        <div className="text-center mt-16">
+          <button className="bg-primary-dark-green hover:bg-primary-navy text-white px-12 py-4 font-semibold transition-all duration-300 tracking-wider border border-primary-gold/30">
             さらに商品を見る
           </button>
         </div>
