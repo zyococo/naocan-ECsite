@@ -34,18 +34,18 @@ const Header = () => {
         <img 
           src="/header.png" 
           alt="なおかん ヘッダー画像" 
-          className="w-full h-auto object-cover"
+          className="w-full h-120 object-cover"
         />
       </div>
 
       {/* Navigation Header */}
       <header className="bg-white border-b border-border-light sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-between h-20">
             {/* Logo - Small version for navigation */}
             <Link to="/" className="flex items-center">
               <div className="flex-shrink-0">
-                <span className="text-lg font-bold text-primary-dark-green tracking-wider">なおかん</span>
+                <span className="text-xl font-bold text-primary-dark-green tracking-wider">なおかん</span>
               </div>
             </Link>
 
@@ -56,7 +56,7 @@ const Header = () => {
                   <li key={item.name}>
                     <Link
                       to={item.href}
-                      className={`font-medium transition-colors duration-300 tracking-wide ${
+                      className={`font-medium transition-colors duration-300 tracking-wide text-base ${
                         isActive(item.href)
                           ? 'text-primary-dark-green border-b border-primary-dark-green pb-1'
                           : 'text-text-charcoal hover:text-primary-dark-green'
@@ -83,10 +83,10 @@ const Header = () => {
                         <img
                           src={authState.user.avatar}
                           alt={authState.user.name}
-                          className="w-8 h-8"
+                          className="w-10 h-10"
                         />
                       ) : (
-                        <UserCircle size={20} />
+                        <UserCircle size={24} />
                       )}
                     </button>
 
@@ -109,14 +109,14 @@ const Header = () => {
                           className="block px-4 py-3 text-sm text-text-charcoal hover:bg-soft-green transition-colors duration-300 flex items-center"
                           onClick={() => setIsUserMenuOpen(false)}
                         >
-                          <Calendar size={16} className="mr-2" />
+                          <Calendar size={18} className="mr-2" />
                           予約管理
                         </Link>
                         <button
                           onClick={handleLogout}
                           className="w-full text-left px-4 py-3 text-sm text-primary-dark-green hover:bg-soft-green transition-colors duration-300 flex items-center"
                         >
-                          <LogOut size={16} className="mr-2" />
+                          <LogOut size={18} className="mr-2" />
                           ログアウト
                         </button>
                       </div>
@@ -127,7 +127,7 @@ const Header = () => {
                     to="/login"
                     className="p-2 text-text-charcoal hover:text-primary-dark-green transition-colors duration-300"
                   >
-                    <User size={20} />
+                    <User size={24} />
                   </Link>
                 )}
               </div>
@@ -136,9 +136,9 @@ const Header = () => {
                 to="/favorites"
                 className="p-2 text-text-charcoal hover:text-primary-dark-green transition-colors duration-300 relative"
               >
-                <Heart size={20} />
+                <Heart size={24} />
                 {favoritesState.itemCount > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-primary-sakura text-text-dark text-xs w-5 h-5 flex items-center justify-center">
+                  <span className="absolute -top-1 -right-1 bg-primary-sakura text-text-dark text-xs w-6 h-6 flex items-center justify-center">
                     {favoritesState.itemCount}
                   </span>
                 )}
@@ -147,9 +147,9 @@ const Header = () => {
                 to="/cart"
                 className="p-2 text-text-charcoal hover:text-primary-dark-green transition-colors duration-300 relative"
               >
-                <ShoppingCart size={20} />
+                <ShoppingCart size={24} />
                 {cartState.itemCount > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-primary-gold text-text-dark text-xs w-5 h-5 flex items-center justify-center">
+                  <span className="absolute -top-1 -right-1 bg-primary-gold text-text-dark text-xs w-6 h-6 flex items-center justify-center">
                     {cartState.itemCount}
                   </span>
                 )}
@@ -160,7 +160,7 @@ const Header = () => {
                 className="md:hidden p-2 text-text-charcoal hover:text-primary-dark-green transition-colors duration-300"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
               >
-                {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
+                {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
             </div>
           </div>

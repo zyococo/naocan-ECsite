@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Plus, Trash2, Calendar, Clock, Users, Search, Edit3, ToggleLeft, ToggleRight, Zap, ZapOff } from 'lucide-react';
 import { useAdmin } from '../../context/AdminContext';
 import ReservationCalendar from '../../components/ReservationCalendar';
+import { supabase } from '../../lib/supabase';
 
 const AdminSlots = () => {
   const { state, deleteAvailableSlot, addAvailableSlot, toggleSlotStatus, loadData, updateReservationStatus } = useAdmin();
@@ -137,7 +138,6 @@ const AdminSlots = () => {
   const updateAvailableSlot = async (slotData: any) => {
     try {
       // 直接Supabaseを使用してスロットを更新
-      const { supabase } = await import('../../lib/supabase');
       const { error } = await supabase
         .from('available_slots')
         .update({
