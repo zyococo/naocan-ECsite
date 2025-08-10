@@ -165,7 +165,7 @@ const AdminSlotForm = () => {
                   required
                   value={formData.date}
                   onChange={handleInputChange}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
                 >
                   <option value="">日付を選択してください</option>
                   {generateAvailableDates().map(date => (
@@ -195,7 +195,7 @@ const AdminSlotForm = () => {
                   required
                   value={formData.time}
                   onChange={handleInputChange}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
                 >
                   <option value="">時間を選択してください</option>
                   {timeSlots.map(time => (
@@ -221,7 +221,7 @@ const AdminSlotForm = () => {
                   max="10"
                   value={formData.maxParticipants}
                   onChange={handleInputChange}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
                   placeholder="4"
                 />
               </div>
@@ -274,21 +274,23 @@ const AdminSlotForm = () => {
               <button
                 type="button"
                 onClick={() => navigate('/admin/dashboard')}
-                className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors duration-200"
+                className="px-6 py-3 border border-gray-300 text-gray-700 rounded-full font-medium hover:bg-gray-50 transition-colors duration-200"
               >
                 キャンセル
               </button>
               <button
                 type="submit"
                 disabled={isLoading}
-                className="bg-primary-purple hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-medium flex items-center gap-2 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-primary-dark-green hover:bg-primary-navy text-white py-4 px-6 rounded-full font-semibold transition-colors duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed tracking-wider"
               >
                 {isLoading ? (
                   <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
                 ) : (
-                  <Save size={20} />
+                  <>
+                    <Save size={20} />
+                    追加
+                  </>
                 )}
-                追加
               </button>
             </div>
           </form>

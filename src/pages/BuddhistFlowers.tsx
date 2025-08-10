@@ -249,7 +249,7 @@ const BuddhistFlowers = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-primary-purple to-purple-700 text-white py-20">
+      <section className="bg-primary-dark-green text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">プリザーブド仏花</h1>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
@@ -363,7 +363,7 @@ const BuddhistFlowers = () => {
                   id="sort"
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-purple text-sm min-w-[140px]"
+                  className="px-3 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-purple text-sm min-w-[140px]"
                 >
                   {sortOptions.map(option => (
                     <option key={option.value} value={option.value}>
@@ -430,7 +430,7 @@ const BuddhistFlowers = () => {
                     <div className="absolute bottom-0 left-0 right-0 p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <button 
                         onClick={() => handleAddToCart(product)}
-                        className="w-full bg-primary-purple hover:bg-purple-700 text-white py-2 px-4 rounded-full font-medium transition-colors duration-200 flex items-center justify-center gap-2"
+                        className="w-full bg-primary-dark-green hover:bg-primary-navy text-white py-2 px-4 rounded-full font-medium transition-colors duration-200 flex items-center justify-center gap-2"
                       >
                         <ShoppingCart size={16} />
                         カートに追加

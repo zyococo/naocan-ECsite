@@ -121,7 +121,7 @@ const AdminOverview = () => {
             className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 transform hover:scale-105"
           >
             <div className="flex items-center justify-between mb-4">
-              <div className={`w-12 h-12 rounded-full bg-gradient-to-r ${stat.color} flex items-center justify-center text-white`}>
+              <div className={`w-12 h-12 rounded-full bg-primary-dark-green flex items-center justify-center text-white`}>
                 {stat.icon}
               </div>
               <div className="flex items-center space-x-1">
@@ -158,8 +158,8 @@ const AdminOverview = () => {
             {state.reservations.slice(0, 5).map((reservation) => (
               <div key={reservation.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                 <div className="flex items-center">
-                  <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-purple-700 rounded-full flex items-center justify-center text-white mr-3">
-                    <Calendar size={16} />
+                  <div className="w-10 h-10 bg-primary-dark-green rounded-full flex items-center justify-center text-white mr-3">
+                    <Calendar size={20} />
                   </div>
                   <div>
                     <p className="font-medium text-gray-900">{reservation.name}</p>
@@ -239,27 +239,27 @@ const AdminOverview = () => {
       </div>
 
       {/* Quick Actions */}
-      <div className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl p-8 text-white">
+      <div className="bg-primary-dark-green rounded-2xl p-8 text-white">
         <h3 className="text-2xl font-bold mb-4">クイックアクション</h3>
         <p className="text-blue-100 mb-6">よく使用される管理機能に素早くアクセスできます</p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <Link
             to="/admin/products/new"
-            className="bg-white bg-opacity-20 hover:bg-opacity-30 backdrop-blur-sm text-white p-4 rounded-lg transition-all duration-200 text-center"
+            className="bg-white bg-opacity-20 hover:bg-opacity-30 backdrop-blur-sm text-white p-4 rounded-full transition-colors duration-200 text-center"
           >
             <Package size={24} className="mx-auto mb-2" />
             <span className="font-medium">新規商品追加</span>
           </Link>
           <Link
             to="/admin/slots/new"
-            className="bg-white bg-opacity-20 hover:bg-opacity-30 backdrop-blur-sm text-white p-4 rounded-lg transition-all duration-200 text-center"
+            className="bg-white bg-opacity-20 hover:bg-opacity-30 backdrop-blur-sm text-white p-4 rounded-full transition-colors duration-200 text-center"
           >
             <Clock size={24} className="mx-auto mb-2" />
             <span className="font-medium">予約枠追加</span>
           </Link>
           <Link
             to="/admin/reservations"
-            className="bg-white bg-opacity-20 hover:bg-opacity-30 backdrop-blur-sm text-white p-4 rounded-lg transition-all duration-200 text-center"
+            className="bg-white bg-opacity-20 hover:bg-opacity-30 backdrop-blur-sm text-white p-4 rounded-full transition-colors duration-200 text-center"
           >
             <Calendar size={24} className="mx-auto mb-2" />
             <span className="font-medium">予約管理</span>

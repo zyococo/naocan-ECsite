@@ -52,10 +52,10 @@ const Cart = () => {
             </p>
             <Link
               to="/buddhist-flowers"
-              className="inline-flex items-center bg-gradient-to-r from-primary-purple to-primary-gold text-white px-8 py-4 rounded-full font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300"
+              className="inline-flex items-center bg-primary-dark-green hover:bg-primary-navy text-white px-8 py-4 rounded-full font-semibold transition-colors duration-300"
             >
               <ArrowLeft size={20} className="mr-2" />
-              お買い物を続ける
+              買い物を続ける
             </Link>
           </div>
         </div>
@@ -66,11 +66,11 @@ const Cart = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <section className="bg-gradient-to-r from-primary-purple to-purple-700 text-white py-12">
+      <section className="bg-primary-dark-green text-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-3xl md:text-4xl font-bold mb-4">ショッピングカート</h1>
           <p className="text-lg opacity-90">
-            選択された商品を確認し、お会計にお進みください。
+            カート内の商品を確認し、お買い物を続けるかチェックアウトしてください。
           </p>
         </div>
       </section>
@@ -141,7 +141,7 @@ const Cart = () => {
 
                         {/* Quantity Controls */}
                         <div className="flex items-center gap-4">
-                          <div className="flex items-center border border-gray-300 rounded-lg">
+                          <div className="flex items-center border border-gray-300 rounded-full">
                             <button
                               onClick={() => handleQuantityChange(item.id, item.quantity, -1)}
                               className="p-2 hover:bg-gray-100 transition-colors duration-200"
@@ -213,8 +213,8 @@ const Cart = () => {
                 </div>
               </div>
 
-              <button className="w-full bg-gradient-to-r from-primary-purple to-primary-gold text-white py-4 rounded-full font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300 mb-4">
-                レジに進む
+              <button className="w-full bg-primary-dark-green hover:bg-primary-navy text-white py-4 rounded-full font-semibold transition-colors duration-300 mb-4">
+                チェックアウト
               </button>
 
               <div className="text-center text-sm text-gray-500">

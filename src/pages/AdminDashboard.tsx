@@ -130,7 +130,7 @@ const AdminDashboard = () => {
             </div>
             <button
               onClick={handleLogout}
-              className="flex items-center gap-2 px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200"
+              className="flex items-center gap-2 px-4 py-2 text-red-600 hover:bg-red-50 rounded-full transition-colors duration-200"
             >
               <LogOut size={20} />
               ログアウト
@@ -152,10 +152,10 @@ const AdminDashboard = () => {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as any)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-colors duration-200 ${
+                className={`flex items-center gap-2 px-4 py-2 rounded-full font-medium transition-colors duration-200 ${
                   activeTab === tab.id
-                    ? 'bg-primary-purple text-white'
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                    ? 'bg-primary-dark-green text-white'
+                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                 }`}
               >
                 {tab.icon}
@@ -177,7 +177,7 @@ const AdminDashboard = () => {
                       <p className="text-sm text-gray-600 mb-1">{stat.title}</p>
                       <p className="text-3xl font-bold text-gray-900">{stat.value}</p>
                     </div>
-                    <div className={`w-12 h-12 rounded-full bg-gradient-to-r ${stat.color} flex items-center justify-center text-white`}>
+                    <div className={`w-12 h-12 rounded-full bg-primary-dark-green flex items-center justify-center text-white`}>
                       {stat.icon}
                     </div>
                   </div>
@@ -249,7 +249,7 @@ const AdminDashboard = () => {
               <h2 className="text-2xl font-bold text-gray-900">商品管理</h2>
               <button
                 onClick={() => navigate('/admin/products/new')}
-                className="bg-primary-purple hover:bg-purple-700 text-white px-4 py-2 rounded-lg font-medium flex items-center gap-2 transition-colors duration-200"
+                className="bg-primary-purple hover:bg-purple-700 text-white px-4 py-2 rounded-full font-medium flex items-center gap-2 transition-colors duration-200"
               >
                 <Plus size={20} />
                 新規商品追加
@@ -322,9 +322,10 @@ const AdminDashboard = () => {
                           <div className="flex gap-2">
                             <button
                               onClick={() => setSelectedProduct(product)}
-                              className="text-blue-600 hover:text-blue-900"
+                              className="bg-primary-dark-green hover:bg-primary-navy text-white px-4 py-2 rounded-full font-medium flex items-center gap-2 transition-colors duration-200"
                             >
                               <Eye size={16} />
+                              詳細を見る
                             </button>
                             <button
                               onClick={() => navigate(`/admin/products/edit/${product.id}`)}
@@ -403,9 +404,10 @@ const AdminDashboard = () => {
                           <div className="flex gap-2">
                             <button
                               onClick={() => setSelectedReservation(reservation)}
-                              className="text-blue-600 hover:text-blue-900"
+                              className="bg-primary-dark-green hover:bg-primary-navy text-white px-4 py-2 rounded-full font-medium flex items-center gap-2 transition-colors duration-200"
                             >
                               <Eye size={16} />
+                              詳細を見る
                             </button>
                             {reservation.status === 'pending' && (
                               <button
@@ -441,7 +443,7 @@ const AdminDashboard = () => {
               <h2 className="text-2xl font-bold text-gray-900">予約枠管理</h2>
               <button
                 onClick={() => navigate('/admin/slots/new')}
-                className="bg-primary-purple hover:bg-purple-700 text-white px-4 py-2 rounded-lg font-medium flex items-center gap-2 transition-colors duration-200"
+                className="bg-primary-purple hover:bg-purple-700 text-white px-4 py-2 rounded-full font-medium flex items-center gap-2 transition-colors duration-200"
               >
                 <Plus size={20} />
                 新規予約枠追加
@@ -616,19 +618,19 @@ const AdminDashboard = () => {
                 <div className="flex gap-2 pt-4">
                   <button
                     onClick={() => handleUpdateReservationStatus(selectedReservation.id, 'confirmed')}
-                    className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200"
+                    className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-full font-medium transition-colors duration-200"
                   >
                     確認済みにする
                   </button>
                   <button
                     onClick={() => handleUpdateReservationStatus(selectedReservation.id, 'completed')}
-                    className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200"
+                    className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full font-medium transition-colors duration-200"
                   >
                     完了にする
                   </button>
                   <button
                     onClick={() => handleUpdateReservationStatus(selectedReservation.id, 'cancelled')}
-                    className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200"
+                    className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full font-medium transition-colors duration-200"
                   >
                     キャンセル
                   </button>

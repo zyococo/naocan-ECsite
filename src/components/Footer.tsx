@@ -120,7 +120,7 @@ const Footer = () => {
           <h3 className="text-lg font-semibold mb-4 text-primary-gold text-center tracking-wider">定期出店場所</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
             {locations.map((location, index) => (
-              <div key={index} className="bg-primary-navy border border-primary-gold/20 px-3 py-2 text-center">
+              <div key={index} className="bg-primary-navy border border-primary-gold/20 px-3 py-2 text-center rounded-full">
                 <p className="text-sm text-gray-300 tracking-wide">{location}</p>
               </div>
             ))}

@@ -329,20 +329,20 @@ const AdminSlots = () => {
           <div className="flex bg-gray-100 rounded-lg p-1">
             <button
               onClick={() => setViewMode('calendar')}
-              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 ${
                 viewMode === 'calendar'
-                  ? 'bg-white text-gray-900 shadow-sm'
-                  : 'text-gray-600 hover:text-gray-900'
+                  ? 'bg-primary-dark-green text-white'
+                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
               }`}
             >
               カレンダー表示
             </button>
             <button
               onClick={() => setViewMode('list')}
-              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 ${
                 viewMode === 'list'
-                  ? 'bg-white text-gray-900 shadow-sm'
-                  : 'text-gray-600 hover:text-gray-900'
+                  ? 'bg-primary-dark-green text-white'
+                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
               }`}
             >
               リスト表示
@@ -350,7 +350,7 @@ const AdminSlots = () => {
           </div>
           <Link
             to="/admin/slots/new"
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium flex items-center gap-2 transition-colors duration-200"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full font-medium flex items-center gap-2 transition-colors duration-200"
           >
             <Plus size={20} />
             新規予約枠追加
@@ -474,7 +474,7 @@ const AdminSlots = () => {
               <div key={slot.id} className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
                 <div className="flex justify-between items-start mb-4">
                   <div className="flex items-center">
-                    <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white mr-3">
+                    <div className="w-12 h-12 bg-primary-dark-green rounded-full flex items-center justify-center text-white mr-3">
                       <Calendar size={20} />
                     </div>
                     <div>
@@ -528,7 +528,7 @@ const AdminSlots = () => {
 
                   <div className="w-full bg-gray-200 rounded-full h-2">
                     <div 
-                      className="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full transition-all duration-300"
+                      className="bg-primary-dark-green h-2 rounded-full transition-all duration-300"
                       style={{ 
                         width: `${slot.currentReservations > 0 ? 100 : 0}%` 
                       }}
@@ -637,13 +637,13 @@ const AdminSlots = () => {
             <div className="flex gap-3 mt-6">
               <button
                 onClick={() => setShowQuickAddModal(false)}
-                className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors duration-200"
+                className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-full hover:bg-gray-50 transition-colors duration-200"
               >
                 キャンセル
               </button>
               <button
                 onClick={handleConfirmQuickAdd}
-                className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors duration-200 font-semibold"
+                className="flex-1 px-4 py-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition-colors duration-200 font-semibold"
               >
                 🚀 予約枠を開設
               </button>
@@ -727,25 +727,25 @@ const AdminSlots = () => {
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                     <button
                       onClick={() => handleUpdateReservationStatus('pending')}
-                      className="px-3 py-2 bg-yellow-100 text-yellow-700 rounded-lg hover:bg-yellow-200 transition-colors duration-200 text-sm font-medium"
+                      className="px-3 py-2 bg-yellow-100 text-yellow-700 rounded-full hover:bg-yellow-200 transition-colors duration-200 text-sm font-medium"
                     >
                       保留中
                     </button>
                     <button
                       onClick={() => handleUpdateReservationStatus('confirmed')}
-                      className="px-3 py-2 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-colors duration-200 text-sm font-medium"
+                      className="px-3 py-2 bg-blue-100 text-blue-700 rounded-full hover:bg-blue-200 transition-colors duration-200 text-sm font-medium"
                     >
                       確認済み
                     </button>
                     <button
                       onClick={() => handleUpdateReservationStatus('completed')}
-                      className="px-3 py-2 bg-green-100 text-green-700 rounded-lg hover:bg-green-200 transition-colors duration-200 text-sm font-medium"
+                      className="px-3 py-2 bg-green-100 text-green-700 rounded-full hover:bg-green-200 transition-colors duration-200 text-sm font-medium"
                     >
                       完了
                     </button>
                     <button
                       onClick={() => handleUpdateReservationStatus('cancelled')}
-                      className="px-3 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition-colors duration-200 text-sm font-medium"
+                      className="px-3 py-2 bg-red-100 text-red-700 rounded-full hover:bg-red-200 transition-colors duration-200 text-sm font-medium"
                     >
                       キャンセル
                     </button>
@@ -756,7 +756,7 @@ const AdminSlots = () => {
                 <div className="flex justify-end pt-4 border-t">
                   <button
                     onClick={() => setShowEditReservationModal(false)}
-                    className="px-6 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg font-medium transition-colors duration-200"
+                    className="px-6 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-full font-medium transition-colors duration-200"
                   >
                     閉じる
                   </button>
@@ -768,7 +768,7 @@ const AdminSlots = () => {
       )}
 
       {/* Summary Stats */}
-      <div className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg p-6 text-white">
+      <div className="bg-primary-dark-green rounded-lg p-6 text-white">
         <h3 className="text-lg font-bold mb-4">予約枠統計</h3>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div className="text-center">

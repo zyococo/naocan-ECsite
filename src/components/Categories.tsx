@@ -55,8 +55,8 @@ const Categories = () => {
                 <p className="text-sm opacity-90 mb-6 leading-relaxed">
                   {category.description}
                 </p>
-                <span className="bg-white bg-opacity-20 hover:bg-opacity-30 backdrop-blur-sm text-white px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 border border-white border-opacity-30 self-start">
-                  詳細を見る
+                <span className="bg-white bg-opacity-20 hover:bg-opacity-30 backdrop-blur-sm text-white px-6 py-3 rounded-full text-sm font-semibold transition-colors duration-300 border border-white border-opacity-30 self-start">
+                  {category.title}
                 </span>
               </div>
             </Link>

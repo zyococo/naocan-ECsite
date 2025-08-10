@@ -40,9 +40,9 @@ const AdminProducts = () => {
         </div>
         <Link
           to="/admin/products/new"
-          className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium flex items-center gap-2 transition-colors duration-200"
+          className="inline-flex items-center bg-primary-dark-green hover:bg-primary-navy text-white px-6 py-3 rounded-full font-semibold transition-colors duration-300"
         >
-          <Plus size={20} />
+          <Plus size={20} className="mr-2" />
           新規商品追加
         </Link>
       </div>
@@ -57,7 +57,7 @@ const AdminProducts = () => {
               placeholder="商品名で検索..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <div className="relative">
@@ -65,7 +65,7 @@ const AdminProducts = () => {
             <select
               value={filterCategory}
               onChange={(e) => setFilterCategory(e.target.value)}
-              className="pl-10 pr-8 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-[200px]"
+              className="pl-10 pr-8 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-[200px]"
             >
               <option value="all">すべてのカテゴリ</option>
               <option value="buddhist">プリザーブド仏花</option>

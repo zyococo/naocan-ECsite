@@ -162,14 +162,14 @@ const Hero = () => {
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link
                     to={slide.link}
-                    className="inline-block bg-gradient-to-r from-primary-purple to-primary-gold text-white px-8 py-4 rounded-full text-lg font-semibold hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+                    className="inline-block bg-primary-dark-green hover:bg-primary-navy text-white px-8 py-4 rounded-full text-lg font-semibold transition-colors duration-300"
                   >
                     {slide.cta}
                   </Link>
                   {slide.id !== 3 && (
                     <Link
                       to="/reservation"
-                      className="inline-block bg-transparent border-2 border-white text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-white hover:text-primary-purple transition-all duration-300 flex items-center justify-center gap-2"
+                      className="inline-block bg-transparent border-2 border-white text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-white hover:text-primary-dark-green transition-colors duration-300 flex items-center justify-center gap-2"
                     >
                       <Calendar size={20} />
                       ガイド予約

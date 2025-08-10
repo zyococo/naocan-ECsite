@@ -69,13 +69,13 @@ const Register = () => {
   }, [state.isAuthenticated, navigate]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-bg-cream to-white flex items-center justify-center px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-bg-cream flex items-center justify-center px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-6">
         {/* Back to Home */}
         <div>
           <Link
             to="/"
-            className="inline-flex items-center text-primary-purple hover:text-purple-700 transition-colors duration-200"
+            className="inline-flex items-center text-primary-dark-green hover:text-primary-navy transition-colors duration-200"
           >
             <ArrowLeft size={20} className="mr-2" />
             ホームに戻る
@@ -121,7 +121,7 @@ const Register = () => {
                   required
                   value={formData.name}
                   onChange={handleInputChange}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
                   placeholder="山田 太郎"
                 />
               </div>
@@ -140,7 +140,7 @@ const Register = () => {
                   required
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
                   placeholder="example@email.com"
                 />
               </div>
@@ -158,7 +158,7 @@ const Register = () => {
                   name="phone"
                   value={formData.phone}
                   onChange={handleInputChange}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
                   placeholder="03-1234-5678"
                 />
               </div>
@@ -177,7 +177,7 @@ const Register = () => {
                   required
                   value={formData.password}
                   onChange={handleInputChange}
-                  className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
+                  className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
                   placeholder="6文字以上で入力"
                 />
                 <button
@@ -203,7 +203,7 @@ const Register = () => {
                   required
                   value={formData.confirmPassword}
                   onChange={handleInputChange}
-                  className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
+                  className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
                   placeholder="パスワードを再入力"
                 />
                 <button
@@ -235,7 +235,7 @@ const Register = () => {
             <button
               type="submit"
               disabled={state.isLoading}
-              className="w-full bg-primary-dark-green hover:bg-primary-navy text-white py-4 px-4 font-semibold transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed tracking-wider border border-primary-gold/30"
+              className="w-full bg-primary-dark-green hover:bg-primary-navy text-white py-4 px-4 font-semibold transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed tracking-wider border border-primary-gold/30 rounded-full"
             >
               {state.isLoading ? (
                 <div className="w-5 h-5 border-2 border-white border-t-transparent animate-spin" />

@@ -290,7 +290,7 @@ const Reservation = () => {
 
             <button
               onClick={resetForm}
-              className="bg-primary-dark-green hover:bg-primary-navy text-white px-8 py-3 font-semibold transition-colors duration-300 tracking-wider border border-primary-gold/30"
+              className="bg-primary-dark-green hover:bg-primary-navy text-white px-8 py-3 font-semibold transition-colors duration-300 tracking-wider border border-primary-gold/30 rounded-full"
             >
               新しい予約
             </button>
@@ -439,7 +439,7 @@ const Reservation = () => {
                         required
                         value={formData.name}
                         onChange={handleInputChange}
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-preserved-rose focus:border-transparent"
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-preserved-rose focus:border-transparent"
                         placeholder="山田 太郎"
                       />
                     </div>
@@ -458,7 +458,7 @@ const Reservation = () => {
                         required
                         value={formData.email}
                         onChange={handleInputChange}
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-preserved-rose focus:border-transparent"
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-preserved-rose focus:border-transparent"
                         placeholder="example@email.com"
                       />
                     </div>
@@ -479,7 +479,7 @@ const Reservation = () => {
                         required
                         value={formData.phone}
                         onChange={handleInputChange}
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-preserved-rose focus:border-transparent"
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-preserved-rose focus:border-transparent"
                         placeholder="090-1234-5678"
                       />
                     </div>
@@ -494,7 +494,7 @@ const Reservation = () => {
                       name="participants"
                       value={formData.participants}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-preserved-rose focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-preserved-rose focus:border-transparent"
                     >
                       <option value="1">1名</option>
                       <option value="2">2名</option>
@@ -514,7 +514,7 @@ const Reservation = () => {
                       name="flowerType"
                       value={formData.flowerType}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-preserved-rose focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-preserved-rose focus:border-transparent"
                     >
                       <option value="">お任せ</option>
                       {flowerTypes.map(flower => (
@@ -534,7 +534,7 @@ const Reservation = () => {
                       name="colorPreference"
                       value={formData.colorPreference}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-preserved-rose focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-preserved-rose focus:border-transparent"
                     >
                       <option value="">お任せ</option>
                       {colorOptions.map(color => (
@@ -559,7 +559,7 @@ const Reservation = () => {
                       rows={4}
                       value={formData.message}
                       onChange={handleInputChange}
-                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-preserved-rose focus:border-transparent resize-none"
+                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-preserved-rose focus:border-transparent resize-none"
                       placeholder="特別なご要望やメッセージがございましたらご記入ください..."
                     />
                   </div>
@@ -569,7 +569,7 @@ const Reservation = () => {
                   <button
                     type="submit"
                     disabled={status === 'sending'}
-                    className="bg-primary-dark-green hover:bg-primary-navy text-white px-12 py-4 font-semibold transition-all duration-300 flex items-center gap-2 mx-auto disabled:opacity-50 disabled:cursor-not-allowed tracking-wider border border-primary-gold/30"
+                    className="bg-primary-dark-green hover:bg-primary-navy text-white px-12 py-4 font-semibold transition-all duration-300 flex items-center gap-2 mx-auto disabled:opacity-50 disabled:cursor-not-allowed tracking-wider border border-primary-gold/30 rounded-full"
                   >
                     {status === 'sending' ? (
                       <>

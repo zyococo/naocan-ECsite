@@ -70,7 +70,7 @@ const AdminReservations = () => {
               placeholder="名前、メール、電話番号で検索..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <div className="relative">
@@ -78,7 +78,7 @@ const AdminReservations = () => {
             <select
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value)}
-              className="pl-10 pr-8 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-[200px]"
+              className="pl-10 pr-8 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-[200px]"
             >
               <option value="all">すべてのステータス</option>
               <option value="pending">保留中</option>
@@ -110,8 +110,8 @@ const AdminReservations = () => {
                 <tr key={reservation.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
-                      <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-purple-700 rounded-full flex items-center justify-center text-white mr-3">
-                        <User size={16} />
+                      <div className="w-10 h-10 bg-primary-dark-green rounded-full flex items-center justify-center text-white mr-3">
+                        <Calendar size={20} />
                       </div>
                       <div>
                         <div className="text-sm font-medium text-gray-900">{reservation.name}</div>
@@ -260,19 +260,19 @@ const AdminReservations = () => {
                 <div className="flex gap-3 pt-4 border-t">
                   <button
                     onClick={() => handleUpdateStatus(selectedReservation.id, 'confirmed')}
-                    className="flex-1 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200"
+                    className="flex-1 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full font-medium transition-colors duration-200"
                   >
-                    確認済みにする
+                    確認済み
                   </button>
                   <button
                     onClick={() => handleUpdateStatus(selectedReservation.id, 'completed')}
-                    className="flex-1 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200"
+                    className="flex-1 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-full font-medium transition-colors duration-200"
                   >
-                    完了にする
+                    完了
                   </button>
                   <button
                     onClick={() => handleUpdateStatus(selectedReservation.id, 'cancelled')}
-                    className="flex-1 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200"
+                    className="flex-1 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full font-medium transition-colors duration-200"
                   >
                     キャンセル
                   </button>

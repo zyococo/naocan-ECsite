@@ -84,7 +84,7 @@ const Profile = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <section className="bg-gradient-to-r from-primary-purple to-purple-700 text-white py-12">
+      <section className="bg-primary-dark-green text-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link
             to="/"
@@ -119,7 +119,7 @@ const Profile = () => {
                 </div>
                 <button
                   onClick={() => setIsEditing(!isEditing)}
-                  className="p-2 text-primary-purple hover:bg-purple-50 rounded-lg transition-colors duration-200"
+                  className="p-2 text-primary-dark-green hover:bg-purple-50 rounded-full transition-colors duration-200"
                 >
                   {isEditing ? <X size={20} /> : <Edit3 size={20} />}
                 </button>
@@ -139,7 +139,7 @@ const Profile = () => {
                         name="name"
                         value={formData.name}
                         onChange={handleInputChange}
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
                       />
                     </div>
                   ) : (
@@ -159,7 +159,7 @@ const Profile = () => {
                         name="email"
                         value={formData.email}
                         onChange={handleInputChange}
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
                       />
                     </div>
                   ) : (
@@ -179,7 +179,7 @@ const Profile = () => {
                         name="phone"
                         value={formData.phone}
                         onChange={handleInputChange}
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
                         placeholder="電話番号を入力"
                       />
                     </div>
@@ -202,7 +202,7 @@ const Profile = () => {
                         value={formData.address}
                         onChange={handleInputChange}
                         rows={3}
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent resize-none"
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent resize-none"
                         placeholder="住所を入力"
                       />
                     </div>
@@ -217,14 +217,14 @@ const Profile = () => {
                   <div className="flex gap-4">
                     <button
                       onClick={handleSave}
-                      className="flex-1 bg-primary-purple hover:bg-purple-700 text-white py-3 px-4 rounded-lg font-semibold transition-colors duration-200 flex items-center justify-center gap-2"
+                      className="flex-1 bg-primary-dark-green hover:bg-primary-navy text-white py-3 px-4 rounded-full font-semibold transition-colors duration-200 flex items-center justify-center gap-2"
                     >
                       <Save size={20} />
                       保存
                     </button>
                     <button
                       onClick={handleCancel}
-                      className="flex-1 bg-gray-500 hover:bg-gray-600 text-white py-3 px-4 rounded-lg font-semibold transition-colors duration-200"
+                      className="flex-1 bg-gray-500 hover:bg-gray-600 text-white py-3 px-4 rounded-full font-semibold transition-colors duration-200"
                     >
                       キャンセル
                     </button>
@@ -263,19 +263,19 @@ const Profile = () => {
               <div className="space-y-3">
                 <Link
                   to="/cart"
-                  className="block w-full text-left px-4 py-3 text-primary-purple hover:bg-purple-50 rounded-lg transition-colors duration-200"
+                  className="block w-full text-left px-4 py-3 text-primary-dark-green hover:bg-purple-50 rounded-full transition-colors duration-200"
                 >
                   カートを確認
                 </Link>
                 <Link
                   to="/favorites"
-                  className="block w-full text-left px-4 py-3 text-primary-purple hover:bg-purple-50 rounded-lg transition-colors duration-200"
+                  className="block w-full text-left px-4 py-3 text-primary-dark-green hover:bg-purple-50 rounded-full transition-colors duration-200"
                 >
                   お気に入りを見る
                 </Link>
                 <Link
                   to="/contact"
-                  className="block w-full text-left px-4 py-3 text-primary-purple hover:bg-purple-50 rounded-lg transition-colors duration-200"
+                  className="block w-full text-left px-4 py-3 text-primary-dark-green hover:bg-purple-50 rounded-full transition-colors duration-200"
                 >
                   お問い合わせ
                 </Link>
@@ -285,7 +285,7 @@ const Profile = () => {
             {/* Logout */}
             <button
               onClick={handleLogout}
-              className="w-full bg-red-500 hover:bg-red-600 text-white py-3 px-4 rounded-lg font-semibold transition-colors duration-200 flex items-center justify-center gap-2"
+              className="w-full bg-red-500 hover:bg-red-600 text-white py-3 px-4 rounded-full font-semibold transition-colors duration-200 flex items-center justify-center gap-2"
             >
               <LogOut size={20} />
               ログアウト

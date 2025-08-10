@@ -280,7 +280,7 @@ const ReservationCalendar: React.FC<ReservationCalendarProps> = ({
   return (
     <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
       {/* Calendar Header */}
-      <div className="bg-gradient-to-r from-primary-purple to-purple-700 text-white p-6">
+      <div className="bg-primary-dark-green text-white p-6">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-2xl font-bold flex items-center">
             <Calendar size={24} className="mr-3" />
@@ -289,7 +289,7 @@ const ReservationCalendar: React.FC<ReservationCalendarProps> = ({
           <div className="flex items-center space-x-2">
             <button
               onClick={() => navigateMonth('prev')}
-              className="p-2 hover:bg-white/20 rounded-lg transition-colors duration-200"
+              className="p-2 hover:bg-white/20 rounded-full transition-colors duration-200"
             >
               <ChevronLeft size={20} />
             </button>
@@ -298,7 +298,7 @@ const ReservationCalendar: React.FC<ReservationCalendarProps> = ({
             </span>
             <button
               onClick={() => navigateMonth('next')}
-              className="p-2 hover:bg-white/20 rounded-lg transition-colors duration-200"
+              className="p-2 hover:bg-white/20 rounded-full transition-colors duration-200"
             >
               <ChevronRight size={20} />
             </button>
@@ -427,7 +427,7 @@ const ReservationCalendar: React.FC<ReservationCalendarProps> = ({
                           console.log('Direct button click event triggered');
                           handleSlotButtonClick(day, timeSlot, existingSlot);
                         }}
-                        className={`w-full h-6 text-xs rounded border flex items-center justify-between px-1 transition-all duration-200 ${
+                        className={`w-full h-6 text-xs rounded-full border flex items-center justify-between px-1 transition-all duration-200 ${
                           existingSlot 
                             ? isAdmin 
                               ? existingSlot.currentReservations > 0
@@ -613,14 +613,14 @@ const ReservationCalendar: React.FC<ReservationCalendarProps> = ({
                 <div className="flex gap-3 pt-4 border-t">
                   <button
                     onClick={handleEditReservation}
-                    className="flex-1 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center justify-center gap-2"
+                    className="flex-1 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full font-medium transition-colors duration-200 flex items-center justify-center gap-2"
                   >
                     <Edit3 size={16} />
                     編集
                   </button>
                   <button
                     onClick={() => setShowReservationModal(false)}
-                    className="flex-1 bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200"
+                    className="flex-1 bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-full font-medium transition-colors duration-200"
                   >
                     閉じる
                   </button>

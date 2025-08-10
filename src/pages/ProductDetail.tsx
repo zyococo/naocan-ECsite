@@ -220,7 +220,7 @@ const ProductDetail = () => {
                 <div className="flex items-center gap-6 mb-6">
                   <div className="flex items-center">
                     <span className="text-gray-700 mr-4">数量:</span>
-                    <div className="flex items-center border border-gray-300 rounded-lg">
+                    <div className="flex items-center border border-gray-300 rounded-full">
                       <button
                         onClick={() => handleQuantityChange(-1)}
                         className="p-2 hover:bg-gray-100 transition-colors duration-200"
@@ -241,7 +241,7 @@ const ProductDetail = () => {
                 <div className="flex flex-col sm:flex-row gap-4">
                   <button 
                     onClick={handleAddToCart}
-                    className="flex-1 bg-primary-dark-green hover:bg-primary-navy text-white py-4 px-6 font-semibold transition-colors duration-300 flex items-center justify-center gap-2 tracking-wider border border-primary-gold/30"
+                    className="flex-1 bg-primary-dark-green hover:bg-primary-navy text-white py-4 px-6 font-semibold transition-colors duration-300 flex items-center justify-center gap-2 tracking-wider border border-primary-gold/30 rounded-full"
                   >
                     <ShoppingCart size={20} />
                     カートに追加

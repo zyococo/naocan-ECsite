@@ -67,7 +67,7 @@ const Favorites = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <section className="bg-gradient-to-r from-red-500 to-pink-600 text-white py-12">
+      <section className="bg-primary-dark-green text-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-3xl md:text-4xl font-bold mb-4">お気に入り</h1>
           <p className="text-lg opacity-90">
@@ -125,7 +125,7 @@ const Favorites = () => {
                 <div className="absolute bottom-3 left-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <button 
                     onClick={() => handleAddToCart(item)}
-                    className="w-full bg-primary-purple hover:bg-purple-700 text-white py-2 px-4 rounded-full font-medium transition-colors duration-200 flex items-center justify-center gap-2"
+                    className="w-full bg-primary-dark-green hover:bg-primary-navy text-white py-2 px-4 rounded-full font-medium transition-colors duration-200 flex items-center justify-center gap-2"
                   >
                     <ShoppingCart size={16} />
                     カートに追加

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Phone, Mail, MapPin, Clock, Train, Car, Bus, Instagram, MessageCircle } from 'lucide-react';
 import ContactForm from '../components/ContactForm';
+import { Link } from 'react-router-dom';
 
 const Contact = () => {
   const contactInfo = [
@@ -158,9 +159,17 @@ const Contact = () => {
             {/* Google Map */}
             <div className="order-2 lg:order-1">
               <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-                <div className="p-6 bg-gradient-to-r from-primary-purple to-purple-700 text-white">
-                  <h3 className="text-xl font-bold mb-2">店舗位置</h3>
-                  <p className="opacity-90">〒544-0003 大阪市生野区小路東6-7-27</p>
+                <div className="p-6 bg-primary-dark-green text-white">
+                  <h3 className="text-xl font-bold mb-2">お問い合わせ</h3>
+                  <p className="text-gray-200 mb-4">
+                    商品についてのご質問やご相談がございましたら、お気軽にお問い合わせください。
+                  </p>
+                  <Link
+                    to="/contact"
+                    className="inline-block bg-white text-primary-dark-green px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors duration-300"
+                  >
+                    お問い合わせフォーム
+                  </Link>
                 </div>
                 <div className="relative">
                   <iframe
@@ -191,7 +200,7 @@ const Contact = () => {
                       href="https://www.google.com/maps/dir//大阪市生野区小路東6-7-27"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center px-4 py-2 bg-primary-purple text-white rounded-lg hover:bg-purple-700 transition-colors duration-200 text-sm"
+                      className="inline-flex items-center px-4 py-2 bg-primary-dark-green text-white rounded-full hover:bg-primary-navy transition-colors duration-200 text-sm"
                     >
                       <MapPin size={16} className="mr-2" />
                       ルート検索
@@ -200,7 +209,7 @@ const Contact = () => {
                       href="https://www.google.com/maps/place/大阪市生野区小路東6-7-27"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors duration-200 text-sm"
+                      className="inline-flex items-center px-4 py-2 bg-gray-600 text-white rounded-full hover:bg-gray-700 transition-colors duration-200 text-sm"
                     >
                       大きな地図で見る
                     </a>

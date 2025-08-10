@@ -192,7 +192,7 @@ const AdminProductForm = () => {
                   required
                   value={formData.name}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
                   placeholder="商品名を入力"
                 />
               </div>
@@ -207,7 +207,7 @@ const AdminProductForm = () => {
                   required
                   value={formData.category}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
                 >
                   <option value="buddhist">プリザーブド仏花</option>
                   <option value="preserved">プリザーブドフラワー</option>
@@ -230,7 +230,7 @@ const AdminProductForm = () => {
                   step="100"
                   value={formData.price}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
                   placeholder="4800"
                 />
               </div>
@@ -247,7 +247,7 @@ const AdminProductForm = () => {
                   step="100"
                   value={formData.originalPrice}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
                   placeholder="5200"
                 />
               </div>
@@ -265,7 +265,7 @@ const AdminProductForm = () => {
                 required
                 value={formData.image}
                 onChange={handleInputChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
                 placeholder="https://images.pexels.com/..."
               />
               {formData.image && (
@@ -294,7 +294,7 @@ const AdminProductForm = () => {
                 rows={4}
                 value={formData.description}
                 onChange={handleInputChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent resize-none"
+                className="w-full px-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent resize-none"
                 placeholder="商品の詳細説明を入力してください..."
               />
             </div>
@@ -311,7 +311,7 @@ const AdminProductForm = () => {
                   name="color"
                   value={formData.color}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
                   placeholder="white, red, mixed など"
                 />
               </div>
@@ -325,7 +325,7 @@ const AdminProductForm = () => {
                   name="size"
                   value={formData.size}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
                 >
                   <option value="small">小</option>
                   <option value="medium">中</option>
@@ -343,7 +343,7 @@ const AdminProductForm = () => {
                   name="flower"
                   value={formData.flower}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
                   placeholder="rose, chrysanthemum など"
                 />
               </div>
@@ -360,7 +360,7 @@ const AdminProductForm = () => {
                 name="tags"
                 value={formData.tags}
                 onChange={handleInputChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
                 placeholder="人気, 法事, 新作"
               />
             </div>
@@ -380,7 +380,7 @@ const AdminProductForm = () => {
                   step="0.1"
                   value={formData.rating}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
                 />
               </div>
 
@@ -395,7 +395,7 @@ const AdminProductForm = () => {
                   min="0"
                   value={formData.reviews}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-purple focus:border-transparent"
                 />
               </div>
             </div>
@@ -443,14 +443,16 @@ const AdminProductForm = () => {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="bg-primary-purple hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-medium flex items-center gap-2 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-primary-dark-green hover:bg-primary-navy text-white py-4 px-6 rounded-full font-semibold transition-colors duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed tracking-wider"
               >
                 {isLoading ? (
                   <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
                 ) : (
-                  <Save size={20} />
+                  <>
+                    <Save size={20} />
+                    {isEdit ? '商品を更新' : '商品を追加'}
+                  </>
                 )}
-                {isEdit ? '更新' : '追加'}
               </button>
             </div>
           </form>

@@ -251,13 +251,10 @@ const ContactForm = () => {
           <button
             type="submit"
             disabled={status === 'sending'}
-            className="bg-primary-dark-green hover:bg-primary-navy text-white px-12 py-4 font-semibold transition-all duration-300 flex items-center gap-2 mx-auto disabled:opacity-50 disabled:cursor-not-allowed tracking-wider border border-primary-gold/30"
+            className="w-full bg-primary-dark-green hover:bg-primary-navy text-white py-4 px-6 rounded-full font-semibold transition-colors duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed tracking-wider"
           >
             {status === 'sending' ? (
-              <>
-                <Loader size={20} className="animate-spin" />
-                送信中...
-              </>
+              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
             ) : (
               <>
                 <Send size={20} />

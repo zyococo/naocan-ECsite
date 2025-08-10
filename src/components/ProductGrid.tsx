@@ -194,10 +194,10 @@ const ProductGrid = () => {
             <button
               key={filter.id}
               onClick={() => setActiveFilter(filter.id)}
-              className={`px-6 py-3 rounded-full font-medium transition-all duration-300 border-2 ${
+              className={`px-6 py-3 rounded-full font-medium transition-colors duration-300 border-2 ${
                 activeFilter === filter.id
-                  ? 'bg-primary-purple text-white border-primary-purple shadow-lg'
-                  : 'bg-white text-charcoal border-border-light hover:border-primary-purple hover:text-primary-purple'
+                  ? 'bg-primary-dark-green text-white border-primary-dark-green'
+                  : 'bg-white text-charcoal border-border-light hover:border-primary-dark-green hover:text-primary-dark-green'
               }`}
             >
               {filter.name}
@@ -330,7 +330,7 @@ const ProductGrid = () => {
 
         {/* Load More Button */}
         <div className="text-center mt-16">
-          <button className="bg-primary-dark-green hover:bg-primary-navy text-white px-12 py-4 font-semibold transition-all duration-300 tracking-wider border border-primary-gold/30">
+          <button className="bg-primary-dark-green hover:bg-primary-navy text-white px-12 py-4 font-semibold transition-colors duration-300 tracking-wider border border-primary-gold/30 rounded-full">
             さらに商品を見る
           </button>
         </div>

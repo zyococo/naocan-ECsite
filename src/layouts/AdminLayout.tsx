@@ -105,8 +105,8 @@ const AdminLayout = () => {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <div className="flex items-center mr-8">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-r from-red-500 to-red-700 flex items-center justify-center mr-3">
-                  <Shield size={20} className="text-white" />
+                <div className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center mr-3">
+                  <Shield size={16} className="text-white" />
                 </div>
                 <div>
                   <h1 className="text-xl font-bold text-gray-900">なおかん 管理システム</h1>
@@ -122,7 +122,7 @@ const AdminLayout = () => {
               </div>
               <button
                 onClick={handleLogout}
-                className="flex items-center gap-2 px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200"
+                className="flex items-center gap-2 px-4 py-2 text-red-600 hover:bg-red-50 rounded-full transition-colors duration-200"
               >
                 <LogOut size={20} />
                 ログアウト

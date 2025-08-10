@@ -185,7 +185,7 @@ const Guide = () => {
       </section>
 
       {/* Contact CTA */}
-      <section className="py-16 bg-gradient-to-r from-primary-purple to-primary-gold">
+      <section className="py-16 bg-primary-dark-green">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
           <h2 className="text-3xl font-bold mb-4">その他ご不明な点がございましたら</h2>
           <p className="text-lg mb-8 opacity-90">
@@ -194,14 +194,14 @@ const Guide = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href="/reservation"
-              className="bg-white text-primary-purple px-8 py-4 rounded-full font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2"
+              className="bg-white text-primary-dark-green px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-colors duration-300 flex items-center justify-center gap-2"
             >
               <Clock size={20} />
               ガイド予約
             </a>
             <a
               href="/contact"
-              className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-primary-purple transition-all duration-300"
+              className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-primary-dark-green transition-colors duration-300"
             >
               メールでのお問い合わせ
             </a>
