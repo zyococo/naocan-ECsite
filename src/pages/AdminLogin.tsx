@@ -87,7 +87,11 @@ const AdminLogin = () => {
         </div>
 
         {/* Login Form */}
-        <div className="bg-white rounded-2xl shadow-xl p-8">
+        <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+          <div className="text-center mb-8">
+            <h1 className="text-2xl font-bold text-primary-dark-green mb-2">管理者ログイン</h1>
+          </div>
+
           <form onSubmit={handleSubmit} className="space-y-6">
             {error && (
               <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
@@ -155,16 +159,6 @@ const AdminLogin = () => {
               )}
             </button>
           </form>
-
-          {/* Security Notice */}
-          <div className="mt-6 p-4 bg-yellow-50 rounded-lg">
-            <h4 className="text-sm font-semibold text-yellow-800 mb-2">セキュリティについて</h4>
-            <ul className="text-xs text-yellow-700 space-y-1">
-              <li>• 管理者アカウントのみアクセス可能です</li>
-              <li>• セッションは24時間で自動的に期限切れになります</li>
-              <li>• 不正アクセスは記録されます</li>
-            </ul>
-          </div>
         </div>
       </div>
     </div>

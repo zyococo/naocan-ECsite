@@ -3,9 +3,10 @@ import { createClient } from "@supabase/supabase-js";
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-// 本番環境でのエラーハンドリングを改善
+// Supabaseクライアントを作成
 let supabase: any;
 
+// 環境変数が正しく設定されているかチェック
 if (!supabaseUrl || !supabaseAnonKey) {
   console.warn(
     "Missing Supabase environment variables. Some features may not work properly."
@@ -13,6 +14,7 @@ if (!supabaseUrl || !supabaseAnonKey) {
   // エラーを投げずに、ダミーのクライアントを作成
   supabase = createClient("https://dummy.supabase.co", "dummy-key");
 } else {
+  // 実際のSupabaseクライアントを作成
   supabase = createClient(supabaseUrl, supabaseAnonKey);
 }
 

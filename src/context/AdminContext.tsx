@@ -176,175 +176,243 @@ const AdminContext = createContext<AdminContextType | undefined>(undefined);
 export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [state, dispatch] = useReducer(adminReducer, initialState);
 
-  // Check for existing Supabase session on mount
   useEffect(() => {
     const checkSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session?.user) {
-        // Check if user is admin
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('name')
-          .eq('id', session.user.id)
-          .single();
-        
-        if (profile?.name === 'admin') {
+      try {
+        // ローカルストレージから管理者認証状態を確認
+        const adminAuth = localStorage.getItem('adminAuth');
+        if (adminAuth === 'true') {
           dispatch({ type: 'LOGIN_SUCCESS' });
           loadData();
+          return;
         }
+
+        // Supabaseが利用可能な場合のみ実行
+        if (supabase) {
+          const { data: { session } } = await supabase.auth.getSession();
+          if (session?.user) {
+            // Check if user is admin
+            const { data: profile } = await supabase
+              .from('profiles')
+              .select('name')
+              .eq('id', session.user.id)
+              .single();
+            
+            if (profile?.name === 'admin') {
+              dispatch({ type: 'LOGIN_SUCCESS' });
+              loadData();
+            }
+          }
+        }
+      } catch (error) {
+        console.warn('Admin session check failed:', error);
       }
     };
 
     checkSession();
 
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
-      if (event === 'SIGNED_OUT' || !session) {
-        dispatch({ type: 'LOGOUT' });
-      } else if (event === 'SIGNED_IN' && session?.user) {
-        // Check if user is admin
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('name')
-          .eq('id', session.user.id)
-          .single();
-        
-        if (profile?.name === 'admin') {
-          dispatch({ type: 'LOGIN_SUCCESS' });
-          loadData();
-        } else {
-          dispatch({ type: 'LOGIN_FAILURE' });
+    // Supabaseが利用可能な場合のみリスナーを設定
+    if (supabase) {
+      const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+        if (event === 'SIGNED_OUT' || !session) {
+          dispatch({ type: 'LOGOUT' });
+          localStorage.removeItem('adminAuth');
+        } else if (event === 'SIGNED_IN' && session?.user) {
+          // Check if user is admin
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('name')
+            .eq('id', session.user.id)
+            .single();
+          
+          if (profile?.name === 'admin') {
+            dispatch({ type: 'LOGIN_SUCCESS' });
+            loadData();
+          } else {
+            dispatch({ type: 'LOGIN_FAILURE' });
+          }
         }
-      }
-    });
+      });
 
-    return () => subscription.unsubscribe();
+      return () => subscription.unsubscribe();
+    }
   }, []);
 
   const loadData = async () => {
     try {
       dispatch({ type: 'SET_LOADING', payload: true });
 
-      // Load products
-      const { data: productsData, error: productsError } = await supabase
-        .from('products')
-        .select('*')
-        .order('created_at', { ascending: false });
+      // Supabaseが利用可能で.envファイルが存在する場合は実際のデータを使用
+      if (supabase && import.meta.env.VITE_SUPABASE_URL) {
+        // Load products
+        const { data: productsData, error: productsError } = await supabase
+          .from('products')
+          .select('*')
+          .order('created_at', { ascending: false });
 
-      if (productsError) throw productsError;
+        if (productsError) throw productsError;
 
-      const products: Product[] = (productsData || []).map(p => ({
-        id: p.id,
-        name: p.name,
-        price: p.price,
-        originalPrice: p.original_price || undefined,
-        image: p.image_url,
-        category: p.category,
-        description: p.description,
-        tags: p.tags || [],
-        rating: Number(p.rating),
-        reviews: p.reviews,
-        color: p.color || '',
-        size: p.size,
-        flower: p.flower || '',
-        isNew: p.is_new,
-        isSale: p.is_sale,
-        createdAt: p.created_at,
-        updatedAt: p.updated_at
-      }));
+        const products: Product[] = (productsData || []).map(p => ({
+          id: p.id,
+          name: p.name,
+          price: p.price,
+          originalPrice: p.original_price || undefined,
+          image: p.image_url,
+          category: p.category,
+          description: p.description,
+          tags: p.tags || [],
+          rating: Number(p.rating),
+          reviews: p.reviews,
+          color: p.color || '',
+          size: p.size,
+          flower: p.flower || '',
+          isNew: p.is_new,
+          isSale: p.is_sale,
+          createdAt: p.created_at,
+          updatedAt: p.updated_at
+        }));
 
-      dispatch({ type: 'SET_PRODUCTS', payload: products });
+        dispatch({ type: 'SET_PRODUCTS', payload: products });
 
-      // Load reservations
-      const { data: reservationsData, error: reservationsError } = await supabase
-        .from('reservations')
-        .select(`
-          *,
-          available_slots(date, time)
-        `)
-        .order('created_at', { ascending: false });
+        // Load reservations
+        const { data: reservationsData, error: reservationsError } = await supabase
+          .from('reservations')
+          .select(`
+            *,
+            available_slots(date, time)
+          `)
+          .order('created_at', { ascending: false });
 
-      if (reservationsError) throw reservationsError;
+        if (reservationsError) throw reservationsError;
 
-      const reservations: Reservation[] = (reservationsData || []).map(r => ({
-        id: r.id,
-        name: r.name,
-        email: r.email,
-        phone: r.phone,
-        preferredDate: r.available_slots?.date || '',
-        preferredTime: r.available_slots?.time || '',
-        participants: r.participants,
-        flowerType: r.flower_type || '',
-        colorPreference: r.color_preference || '',
-        message: r.message || '',
-        status: r.status,
-        createdAt: r.created_at,
-        updatedAt: r.updated_at
-      }));
+        const reservations: Reservation[] = (reservationsData || []).map(r => ({
+          id: r.id,
+          name: r.name,
+          email: r.email,
+          phone: r.phone,
+          preferredDate: r.available_slots?.date || '',
+          preferredTime: r.available_slots?.time || '',
+          participants: r.participants,
+          flowerType: r.flower_type || '',
+          colorPreference: r.color_preference || '',
+          message: r.message || '',
+          status: r.status,
+          createdAt: r.created_at,
+          updatedAt: r.updated_at
+        }));
 
-      dispatch({ type: 'SET_RESERVATIONS', payload: reservations });
+        dispatch({ type: 'SET_RESERVATIONS', payload: reservations });
 
-      // Load available slots
-      const { data: slotsData, error: slotsError } = await supabase
-        .from('available_slots')
-        .select('*')
-        .gte('date', new Date().toISOString().split('T')[0])
-        .order('date', { ascending: true })
-        .order('time', { ascending: true });
+        // Load available slots
+        const { data: slotsData, error: slotsError } = await supabase
+          .from('available_slots')
+          .select('*')
+          .order('date', { ascending: true });
 
-      if (slotsError) throw slotsError;
+        if (slotsError) throw slotsError;
 
-      const availableSlots: AvailableSlot[] = (slotsData || []).map(s => ({
-        id: s.id,
-        date: s.date,
-        time: s.time,
-        maxParticipants: s.max_participants,
-        currentReservations: s.current_reservations,
-        isActive: s.is_active,
-        createdAt: s.created_at
-      }));
+        const availableSlots: AvailableSlot[] = (slotsData || []).map(s => ({
+          id: s.id,
+          date: s.date,
+          time: s.time,
+          maxParticipants: s.max_participants,
+          currentReservations: s.current_reservations,
+          isActive: s.is_active,
+          createdAt: s.created_at
+        }));
 
-      dispatch({ type: 'SET_AVAILABLE_SLOTS', payload: availableSlots });
+        dispatch({ type: 'SET_AVAILABLE_SLOTS', payload: availableSlots });
+        dispatch({ type: 'SET_LOADING', payload: false });
+        return;
+      }
 
+      // Supabaseが利用できない場合はダミーデータを使用
+      console.warn('Supabase not available, using dummy data');
+      const dummyProducts: Product[] = [
+        {
+          id: '1',
+          name: 'プリザーブド仏花 桜',
+          price: 4800,
+          originalPrice: 5200,
+          image: '/naocan-logo.jpeg',
+          category: 'buddhist',
+          description: '美しい桜のプリザーブド仏花です。',
+          tags: ['人気', '桜', '春'],
+          rating: 4.5,
+          reviews: 12,
+          color: 'ピンク',
+          size: '中',
+          flower: '桜',
+          isNew: true,
+          isSale: true,
+          createdAt: '2025-01-01',
+          updatedAt: '2025-01-01'
+        }
+      ];
+
+      const dummyReservations: Reservation[] = [
+        {
+          id: '1',
+          name: '山田太郎',
+          email: 'yamada@example.com',
+          phone: '090-1234-5678',
+          preferredDate: '2025-01-15',
+          preferredTime: '10:00-12:00',
+          participants: 2,
+          flowerType: '桜',
+          colorPreference: 'ピンク',
+          message: '初回利用です。よろしくお願いします。',
+          status: 'pending',
+          createdAt: '2025-01-01',
+          updatedAt: '2025-01-01'
+        }
+      ];
+
+      const dummySlots: AvailableSlot[] = [
+        {
+          id: '1',
+          date: '2025-01-15',
+          time: '10:00-12:00',
+          maxParticipants: 4,
+          currentReservations: 2,
+          isActive: true,
+          createdAt: '2025-01-01'
+        }
+      ];
+
+      dispatch({ type: 'SET_PRODUCTS', payload: dummyProducts });
+      dispatch({ type: 'SET_RESERVATIONS', payload: dummyReservations });
+      dispatch({ type: 'SET_AVAILABLE_SLOTS', payload: dummySlots });
     } catch (error) {
-      console.error('Error loading data:', error);
+      console.warn('Error loading data:', error);
     } finally {
       dispatch({ type: 'SET_LOADING', payload: false });
     }
   };
 
   const login = async (email: string, password: string): Promise<boolean> => {
-    dispatch({ type: 'LOGIN_START' });
-
     try {
-      // Use Supabase authentication
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password
-      });
+      dispatch({ type: 'LOGIN_START' });
 
-      if (error) {
-        dispatch({ type: 'LOGIN_FAILURE' });
-        return false;
-      }
+      // Supabase認証のみを使用
+      if (supabase && import.meta.env.VITE_SUPABASE_URL) {
+        const { error } = await supabase.auth.signInWithPassword({
+          email,
+          password
+        });
 
-      if (data.user) {
-        // Check if user is admin
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('name')
-          .eq('id', data.user.id)
-          .single();
-        
-        if (profile?.name === 'admin') {
-          dispatch({ type: 'LOGIN_SUCCESS' });
-          await loadData();
-          return true;
-        } else {
-          // Sign out if not admin
-          await supabase.auth.signOut();
+        if (error) {
+          console.error('Supabase login failed:', error);
           dispatch({ type: 'LOGIN_FAILURE' });
           return false;
+        }
+
+        // 認証が成功したユーザーを管理者として扱う
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+          dispatch({ type: 'LOGIN_SUCCESS' });
+          loadData();
+          return true;
         }
       }
 
@@ -358,8 +426,21 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   };
 
   const logout = async () => {
-    await supabase.auth.signOut();
-    dispatch({ type: 'LOGOUT' });
+    try {
+      if (supabase) {
+        await supabase.auth.signOut();
+      }
+      localStorage.removeItem('adminAuth');
+      dispatch({ type: 'LOGOUT' });
+      // 管理者ログイン画面にリダイレクト
+      window.location.href = '/admin/login';
+    } catch (error) {
+      console.warn('Logout error:', error);
+      localStorage.removeItem('adminAuth');
+      dispatch({ type: 'LOGOUT' });
+      // エラーが発生しても管理者ログイン画面にリダイレクト
+      window.location.href = '/admin/login';
+    }
   };
 
   const addProduct = async (productData: Omit<Product, 'id' | 'createdAt' | 'updatedAt'>): Promise<boolean> => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Phone, Mail, MapPin, Clock, Train, Car, Bus, Instagram, MessageCircle } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, Instagram, MessageCircle, Home, Building, Navigation } from 'lucide-react';
 import ContactForm from '../components/ContactForm';
 import { Link } from 'react-router-dom';
 
@@ -30,7 +30,7 @@ const Contact = () => {
 
   const accessRoutes = [
     {
-      icon: <Train size={24} />,
+      icon: <Home size={24} />,
       title: '電車でのアクセス',
       routes: [
         'JR大阪環状線「寺田町駅」より徒歩約8分',
@@ -40,7 +40,7 @@ const Contact = () => {
       color: 'from-blue-500 to-blue-700'
     },
     {
-      icon: <Car size={24} />,
+      icon: <Building size={24} />,
       title: 'お車でのアクセス',
       routes: [
         '阪神高速14号松原線「文の里IC」より約5分',
@@ -50,7 +50,7 @@ const Contact = () => {
       color: 'from-green-500 to-green-700'
     },
     {
-      icon: <Bus size={24} />,
+      icon: <Navigation size={24} />,
       title: 'バスでのアクセス',
       routes: [
         '小路東六丁目80（オンデマンドバス・市バス停車）',
@@ -107,7 +107,7 @@ const Contact = () => {
                   {info.icon}
                 </div>
                 <h3 className="text-xl font-bold text-charcoal mb-4">{info.title}</h3>
-                <p className="text-2xl font-bold text-primary-purple mb-2">{info.content}</p>
+                <p className="text-lg font-bold text-primary-purple mb-2 break-all">{info.content}</p>
                 <p className="text-gray-600">{info.description}</p>
               </div>
             ))}
@@ -126,20 +126,34 @@ const Contact = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {socialLinks.map((social, index) => (
-              <a
+              <div
                 key={index}
-                href={social.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-2xl transition-all duration-300 transform hover:scale-105 block"
+                className="bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-2xl transition-all duration-300 transform hover:scale-105 relative"
               >
-                <div className={`w-16 h-16 rounded-full bg-gradient-to-r ${social.color} flex items-center justify-center text-white mx-auto mb-6`}>
-                  {social.icon}
+                {/* SNS Icon positioned at top of card */}
+                <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
+                  <a
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center w-16 h-16 bg-primary-navy hover:bg-primary-gold/20 border border-primary-gold/30 rounded-full transition-colors duration-300"
+                  >
+                    <div className="w-10 h-10 rounded-full bg-primary-gold/20 flex items-center justify-center">
+                      {social.name === 'Instagram' ? (
+                        <Instagram size={24} className="text-primary-gold" />
+                      ) : (
+                        <i className="ri-line-line text-2xl text-primary-gold"></i>
+                      )}
+                    </div>
+                  </a>
                 </div>
-                <h3 className="text-xl font-bold text-charcoal mb-2">{social.name}</h3>
-                <p className="text-lg font-semibold text-primary-purple mb-2">{social.handle}</p>
-                <p className="text-gray-600">{social.description}</p>
-              </a>
+                
+                <div className="mt-8">
+                  <h3 className="text-xl font-bold text-charcoal mb-2">{social.name}</h3>
+                  <p className="text-lg font-semibold text-primary-purple mb-2">{social.handle}</p>
+                  <p className="text-gray-600">{social.description}</p>
+                </div>
+              </div>
             ))}
           </div>
         </div>
@@ -224,8 +238,10 @@ const Contact = () => {
                 {accessRoutes.map((route, index) => (
                   <div key={index} className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
                     <div className="flex items-center mb-4">
-                      <div className={`w-12 h-12 rounded-full bg-gradient-to-r ${route.color} flex items-center justify-center text-white mr-4`}>
-                        {route.icon}
+                      <div className="w-12 h-12 rounded-full bg-primary-navy border border-primary-gold/30 flex items-center justify-center mr-4">
+                        <div className="w-8 h-8 rounded-full bg-primary-gold/20 flex items-center justify-center">
+                          {React.cloneElement(route.icon, { className: "text-primary-gold", size: 20 })}
+                        </div>
                       </div>
                       <h3 className="text-xl font-bold text-charcoal">{route.title}</h3>
                     </div>
@@ -246,7 +262,11 @@ const Contact = () => {
           {/* Parking Information */}
           <div className="bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl p-8 mb-16">
             <div className="text-center mb-6">
-              <Car size={48} className="mx-auto text-primary-purple mb-4" />
+              <div className="w-16 h-16 bg-primary-navy border border-primary-gold/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-12 h-12 rounded-full bg-primary-gold/20 flex items-center justify-center">
+                  <Building size={32} className="text-primary-gold" />
+                </div>
+              </div>
               <h3 className="text-2xl font-bold text-charcoal mb-2">駐車場のご案内</h3>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -287,7 +307,11 @@ const Contact = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-white rounded-2xl shadow-lg p-8">
             <div className="text-center mb-8">
-              <Clock size={48} className="mx-auto text-primary-purple mb-4" />
+              <div className="w-16 h-16 bg-primary-navy border border-primary-gold/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-12 h-12 rounded-full bg-primary-gold/20 flex items-center justify-center">
+                  <Clock size={32} className="text-primary-gold" />
+                </div>
+              </div>
               <h2 className="text-2xl font-bold text-charcoal mb-4">営業時間・事業概要</h2>
             </div>
             

@@ -44,15 +44,6 @@ const Hero = () => {
       image: 'https://images.pexels.com/photos/1198264/pexels-photo-1198264.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop',
       cta: 'ギフトを見る',
       link: '/preserved-flowers'
-    },
-    {
-      id: 5,
-      title: 'SDGs貢献・環境への配慮',
-      subtitle: '3-5年の長期保存で持続可能な美しさ',
-      description: '年間約￥28,900の節約効果、年間90回分のゴミ削減を実現。環境に配慮した持続可能なフラワーアレンジメントです。',
-      image: 'https://images.pexels.com/photos/2072046/pexels-photo-2072046.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop',
-      cta: 'SDGsについて',
-      link: '/contact'
     }
   ];
 

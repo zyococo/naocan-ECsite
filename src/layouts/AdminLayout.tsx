@@ -20,7 +20,6 @@ const AdminLayout = () => {
 
   const handleLogout = () => {
     logout();
-    navigate('/', { replace: true });
   };
 
   const navigationItems = [
