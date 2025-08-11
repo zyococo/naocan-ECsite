@@ -73,7 +73,6 @@ const Register = () => {
       setError('Googleログイン中にエラーが発生しました。しばらく時間をおいて再度お試しください。');
     }
   };
-  };
 
   // Redirect if already logged in
   React.useEffect(() => {
