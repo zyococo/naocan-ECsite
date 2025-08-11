@@ -83,10 +83,12 @@ const Header = () => {
                         <img
                           src={authState.user.avatar}
                           alt={authState.user.name}
-                          className="w-10 h-10"
+                          className="w-10 h-10 rounded-full object-cover"
                         />
                       ) : (
-                        <UserCircle size={24} />
+                        <div className="w-10 h-10 rounded-full bg-primary-dark-green flex items-center justify-center">
+                          <UserCircle size={24} className="text-white" />
+                        </div>
                       )}
                     </button>
 

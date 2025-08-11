@@ -22,6 +22,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
 import Reservation from './pages/Reservation';
+import AuthCallback from './pages/AuthCallback';
 
 // Admin Pages
 import AdminLogin from './pages/AdminLogin';
@@ -86,6 +87,7 @@ function App() {
                   <Route path="login" element={<Login />} />
                   <Route path="register" element={<Register />} />
                   <Route path="profile" element={<Profile />} />
+                  <Route path="auth/callback" element={<AuthCallback />} />
                 </Route>
               </Routes>
             </Router>

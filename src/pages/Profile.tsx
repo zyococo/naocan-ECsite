@@ -110,7 +110,7 @@ const Profile = () => {
                   <img
                     src={state.user.avatar}
                     alt={state.user.name}
-                    className="w-20 h-20 rounded-full mr-6"
+                    className="w-20 h-20 rounded-full mr-6 object-cover"
                   />
                   <div>
                     <h2 className="text-2xl font-bold text-charcoal mb-2">{state.user.name}</h2>
@@ -249,7 +249,7 @@ const Profile = () => {
                       <p className="text-sm text-gray-600 mb-1">{stat.label}</p>
                       <p className="text-2xl font-bold text-charcoal">{stat.value}</p>
                     </div>
-                    <div className="w-12 h-12 bg-primary-dark-green flex items-center justify-center text-white">
+                    <div className="w-12 h-12 bg-primary-dark-green rounded-full flex items-center justify-center text-white">
                       {stat.icon}
                     </div>
                   </div>

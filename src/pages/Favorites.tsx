@@ -53,7 +53,7 @@ const Favorites = () => {
             </p>
             <Link
               to="/"
-              className="inline-flex items-center bg-gradient-to-r from-primary-purple to-primary-gold text-white px-8 py-4 rounded-full font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300"
+              className="inline-flex items-center bg-primary-dark-green hover:bg-primary-navy text-white px-8 py-4 rounded-full font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300"
             >
               <ArrowLeft size={20} className="mr-2" />
               お買い物を続ける
