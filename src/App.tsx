@@ -23,6 +23,9 @@ import Register from './pages/Register';
 import Profile from './pages/Profile';
 import Reservation from './pages/Reservation';
 import AuthCallback from './pages/AuthCallback';
+import SpecifiedCommercialCode from './pages/legal/SpecifiedCommercialCode';
+import PrivacyPolicy from './pages/legal/PrivacyPolicy';
+import TermsOfService from './pages/legal/TermsOfService';
 
 // Admin Pages
 import AdminLogin from './pages/AdminLogin';
@@ -88,6 +91,9 @@ function App() {
                   <Route path="register" element={<Register />} />
                   <Route path="profile" element={<Profile />} />
                   <Route path="auth/callback" element={<AuthCallback />} />
+                  <Route path="legal/specified-commercial-code" element={<SpecifiedCommercialCode />} />
+                  <Route path="legal/privacy-policy" element={<PrivacyPolicy />} />
+                  <Route path="legal/terms-of-service" element={<TermsOfService />} />
                 </Route>
               </Routes>
             </Router>

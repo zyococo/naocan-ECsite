@@ -166,24 +166,36 @@ const Footer = () => {
       </div>
 
       {/* Bottom Footer */}
-      <div className="bg-primary-navy border-t border-primary-gold/20 py-4">
+      <div className="bg-primary-navy border-t border-primary-gold/20 py-6">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="text-sm text-gray-300 mb-3 md:mb-0 tracking-wide">
+          {/* Copyright */}
+          <div className="text-center mb-4">
+            <p className="text-sm text-gray-300 tracking-wide">
               © 2025 なおかん (naocan). All rights reserved. | 代表: 挾間 健二
-            </div>
-            <div className="flex space-x-6 text-sm">
-              <a href="/contact" className="text-gray-300 hover:text-primary-gold transition-colors duration-300 tracking-wide">
-                お問い合わせ
-              </a>
-              <a href="/reservation" className="text-gray-300 hover:text-primary-gold transition-colors duration-300 tracking-wide">
-                予約・ガイド
-              </a>
-              <a href="/admin/login" className="text-primary-sakura hover:text-white transition-colors duration-300 flex items-center tracking-wide">
-                <Shield size={12} className="mr-1" />
-                管理者
-              </a>
-            </div>
+            </p>
+          </div>
+          
+          {/* Legal Links */}
+          <div className="flex flex-wrap justify-center space-x-6 text-xs border-t border-primary-gold/20 pt-4">
+            <a href="/legal/specified-commercial-code" className="text-gray-300 hover:text-primary-gold transition-colors duration-300 tracking-wide">
+              特定商取引法に基づく表記
+            </a>
+            <a href="/legal/privacy-policy" className="text-gray-300 hover:text-primary-gold transition-colors duration-300 tracking-wide">
+              プライバシーポリシー
+            </a>
+            <a href="/legal/terms-of-service" className="text-gray-300 hover:text-primary-gold transition-colors duration-300 tracking-wide">
+              利用規約
+            </a>
+            <a href="/contact" className="text-gray-300 hover:text-primary-gold transition-colors duration-300 tracking-wide">
+              お問い合わせ
+            </a>
+            <a href="/reservation" className="text-gray-300 hover:text-primary-gold transition-colors duration-300 tracking-wide">
+              予約・ガイド
+            </a>
+            <a href="/admin/login" className="text-primary-sakura hover:text-white transition-colors duration-300 flex items-center tracking-wide">
+              <Shield size={12} className="mr-1" />
+              管理者
+            </a>
           </div>
         </div>
       </div>
