@@ -122,6 +122,49 @@ const Guide = () => {
         </div>
       </section>
 
+      {/* Vase Selection Guide */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-charcoal mb-4">花・花器選びガイド</h2>
+            <p className="text-lg text-gray-600">
+              豊富な種類の中から、お客様にぴったりの花器と花材をお選びいただけます。
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+            <div className="text-center">
+              <div className="w-20 h-20 bg-gradient-to-r from-primary-dark-green to-primary-gold rounded-full flex items-center justify-center text-white mx-auto mb-4">
+                <Package size={32} />
+              </div>
+              <h3 className="text-xl font-bold text-charcoal mb-2">伝統工芸品</h3>
+              <p className="text-gray-600">日本の伝統工芸品の花器</p>
+            </div>
+            <div className="text-center">
+              <div className="w-20 h-20 bg-gradient-to-r from-primary-purple to-primary-gold rounded-full flex items-center justify-center text-white mx-auto mb-4">
+                <Heart size={32} />
+              </div>
+              <h3 className="text-xl font-bold text-charcoal mb-2">モダンデザイン</h3>
+              <p className="text-gray-600">現代的なデザインの花器で、インテリアに合わせて選択</p>
+            </div>
+            <div className="text-center">
+              <div className="w-20 h-20 bg-gradient-to-r from-primary-gold to-yellow-600 rounded-full flex items-center justify-center text-white mx-auto mb-4">
+                <Shield size={32} />
+              </div>
+              <h3 className="text-xl font-bold text-charcoal mb-2">季節の花材</h3>
+              <p className="text-gray-600">四季折々の花材から、シーズンに合わせたアレンジメント</p>
+            </div>
+            <div className="text-center">
+              <div className="w-20 h-20 bg-gradient-to-r from-primary-sakura to-pink-600 rounded-full flex items-center justify-center text-white mx-auto mb-4">
+                <Truck size={32} />
+              </div>
+              <h3 className="text-xl font-bold text-charcoal mb-2">カスタム制作</h3>
+              <p className="text-gray-600">お客様のご要望に合わせた完全オリジナル制作</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Care Instructions */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

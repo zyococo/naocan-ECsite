@@ -3,6 +3,7 @@ import { Heart, ShoppingCart, Eye, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useFavorites } from '../context/FavoritesContext';
+import { useProducts } from '../hooks/useSupabase';
 
 const PreservedFlowers = () => {
   const [filters, setFilters] = useState({
@@ -14,129 +15,10 @@ const PreservedFlowers = () => {
   const [sortBy, setSortBy] = useState('popular');
   const { addItem } = useCart();
   const { addFavorite, removeFavorite, isFavorite } = useFavorites();
+  const { products, loading, error } = useProducts();
 
-  const products = [
-    {
-      id: 2,
-      name: 'プリザーブドローズ・エレガント',
-      price: 12800,
-      originalPrice: null,
-      image: 'https://images.pexels.com/photos/931162/pexels-photo-931162.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-      rating: 4.9,
-      reviews: 89,
-      tags: ['新作', 'ギフト'],
-      description: 'エレガントなプリザーブドローズのアレンジメントです。',
-      color: 'red',
-      size: 'medium',
-      flower: 'rose',
-      isNew: true
-    },
-    {
-      id: 5,
-      name: 'プリザーブド・ハートボックス',
-      price: 9800,
-      originalPrice: null,
-      image: 'https://images.pexels.com/photos/1416530/pexels-photo-1416530.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-      rating: 4.8,
-      reviews: 134,
-      tags: ['記念日', '贈り物'],
-      description: 'ハート型のボックスに入ったロマンチックなプリザーブドフラワーです。',
-      color: 'pink',
-      size: 'small',
-      flower: 'mixed',
-      isNew: false
-    },
-    {
-      id: 7,
-      name: 'プリザーブド・ガーデンドーム',
-      price: 15800,
-      originalPrice: null,
-      image: 'https://images.pexels.com/photos/1198264/pexels-photo-1198264.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-      rating: 4.9,
-      reviews: 56,
-      tags: ['高級', '新作'],
-      description: 'ガラスドームに入った美しいプリザーブドフラワーガーデンです。',
-      color: 'mixed',
-      size: 'large',
-      flower: 'mixed',
-      isNew: true
-    },
-    {
-      id: 12,
-      name: 'プリザーブド・ブルーローズ',
-      price: 8800,
-      originalPrice: 9800,
-      image: 'https://images.pexels.com/photos/931162/pexels-photo-931162.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-      rating: 4.7,
-      reviews: 112,
-      tags: ['希少', 'ブルー'],
-      description: '珍しいブルーのプリザーブドローズです。',
-      color: 'blue',
-      size: 'medium',
-      flower: 'rose',
-      isNew: false
-    },
-    {
-      id: 13,
-      name: 'プリザーブド・ホワイトブーケ',
-      price: 11200,
-      originalPrice: null,
-      image: 'https://images.pexels.com/photos/1416530/pexels-photo-1416530.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-      rating: 4.8,
-      reviews: 78,
-      tags: ['ウェディング', '純白'],
-      description: '純白のプリザーブドフラワーブーケです。',
-      color: 'white',
-      size: 'large',
-      flower: 'mixed',
-      isNew: false
-    },
-    {
-      id: 14,
-      name: 'プリザーブド・レインボー',
-      price: 13500,
-      originalPrice: null,
-      image: 'https://images.pexels.com/photos/1198264/pexels-photo-1198264.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-      rating: 4.6,
-      reviews: 95,
-      tags: ['カラフル', '特別'],
-      description: '虹色に輝くカラフルなプリザーブドフラワーです。',
-      color: 'mixed',
-      size: 'medium',
-      flower: 'mixed',
-      isNew: false
-    },
-    {
-      id: 15,
-      name: 'ミニプリザーブド・ローズ',
-      price: 4800,
-      originalPrice: null,
-      image: 'https://images.pexels.com/photos/931162/pexels-photo-931162.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-      rating: 4.5,
-      reviews: 156,
-      tags: ['コンパクト', 'お手軽'],
-      description: 'コンパクトサイズのプリザーブドローズです。',
-      color: 'red',
-      size: 'small',
-      flower: 'rose',
-      isNew: false
-    },
-    {
-      id: 16,
-      name: 'プリザーブド・カーネーション',
-      price: 6800,
-      originalPrice: 7500,
-      image: 'https://images.pexels.com/photos/1416530/pexels-photo-1416530.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-      rating: 4.6,
-      reviews: 89,
-      tags: ['母の日', 'ギフト'],
-      description: '母の日にぴったりなプリザーブドカーネーションです。',
-      color: 'pink',
-      size: 'medium',
-      flower: 'carnation',
-      isNew: false
-    }
-  ];
+  // プリザーブドフラワーカテゴリの商品のみをフィルタリング
+  const preservedProducts = products.filter(product => product.category === 'preserved');
 
   const filterOptions = {
     budget: [
@@ -151,6 +33,7 @@ const PreservedFlowers = () => {
       { value: 'pink', label: 'ピンク' },
       { value: 'blue', label: 'ブルー' },
       { value: 'white', label: 'ホワイト' },
+      { value: 'purple', label: 'パープル' },
       { value: 'mixed', label: 'ミックス' }
     ],
     size: [
@@ -164,6 +47,7 @@ const PreservedFlowers = () => {
       { value: 'rose', label: 'ローズ' },
       { value: 'carnation', label: 'カーネーション' },
       { value: 'hydrangea', label: 'あじさい' },
+      { value: 'lavender', label: 'ラベンダー' },
       { value: 'mixed', label: 'ミックス' }
     ]
   };
@@ -177,7 +61,7 @@ const PreservedFlowers = () => {
 
   // Filter and sort products
   const filteredAndSortedProducts = useMemo(() => {
-    let filtered = products.filter(product => {
+    let filtered = preservedProducts.filter(product => {
       // Budget filter
       if (filters.budget !== 'all') {
         if (filters.budget === 'low' && product.price > 8000) return false;
@@ -217,7 +101,7 @@ const PreservedFlowers = () => {
     });
 
     return filtered;
-  }, [filters, sortBy]);
+  }, [filters, sortBy, preservedProducts]);
 
   const handleFilterChange = (filterType: string, value: string) => {
     setFilters(prev => ({
@@ -253,8 +137,8 @@ const PreservedFlowers = () => {
       id: product.id,
       name: product.name,
       price: product.price,
-      originalPrice: product.originalPrice,
-      image: product.image,
+      originalPrice: product.original_price,
+      image: product.image_url,
       category: 'preserved'
     });
   };
@@ -267,14 +151,57 @@ const PreservedFlowers = () => {
         id: product.id,
         name: product.name,
         price: product.price,
-        originalPrice: product.originalPrice,
-        image: product.image,
+        originalPrice: product.original_price,
+        image: product.image_url,
         category: 'preserved',
         rating: product.rating,
         reviews: product.reviews
       });
     }
   };
+
+  // ローディング状態
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="relative w-20 h-20 mx-auto mb-6">
+            <div className="absolute inset-0 flex items-center justify-center">
+              <svg 
+                className="w-12 h-12 text-primary-dark-green animate-pulse" 
+                fill="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM12 18C13.1 18 14 18.9 14 20C14 21.1 13.1 22 12 22C10.9 22 10 21.1 10 20C10 18.9 10.9 18 12 18ZM4 12C4 10.9 4.9 10 6 10C7.1 10 8 10.9 8 12C8 13.1 7.1 14 6 14C4.9 14 4 13.1 4 12ZM18 12C18 10.9 18.9 10 20 10C21.1 10 22 10.9 22 12C22 13.1 21.1 14 20 14C18.9 14 18 13.1 18 12ZM7.05 7.05C7.05 5.95 7.95 5.05 9.05 5.05C10.15 5.05 11.05 5.95 11.05 7.05C11.05 8.15 10.15 9.05 9.05 9.05C7.95 9.05 7.05 8.15 7.05 7.05ZM14.95 7.05C14.95 5.95 15.85 5.05 16.95 5.05C18.05 5.05 18.95 5.95 18.95 7.05C18.95 8.15 18.05 9.05 16.95 9.05C15.85 9.05 14.95 8.15 14.95 7.05ZM7.05 16.95C7.05 15.85 7.95 14.95 9.05 14.95C10.15 14.95 11.05 15.85 11.05 16.95C11.05 18.05 10.15 18.95 9.05 18.95C7.95 18.95 7.05 18.05 7.05 16.95ZM14.95 16.95C14.95 15.85 15.85 14.95 16.95 14.95C18.05 14.95 18.95 15.85 18.95 16.95C18.95 18.05 18.05 18.95 16.95 18.95C15.85 9.05 14.95 18.05 14.95 16.95Z"/>
+              </svg>
+            </div>
+            <div className="absolute inset-0 border-4 border-primary-gold/30 border-t-primary-gold rounded-full animate-spin"></div>
+          </div>
+          <p className="text-gray-600 text-lg">商品を読み込み中...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // エラー状態
+  if (error) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="bg-red-50 border border-red-200 rounded-lg p-8 max-w-2xl mx-auto">
+            <h3 className="text-xl font-semibold text-red-800 mb-2">エラーが発生しました</h3>
+            <p className="text-red-700 mb-4">{error}</p>
+            <button
+              onClick={() => window.location.reload()}
+              className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-lg transition-colors duration-200"
+            >
+              再読み込み
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -416,9 +343,13 @@ const PreservedFlowers = () => {
                     <Link to={`/product/${product.id}`} className="block">
                       <div className="relative aspect-square overflow-hidden">
                         <img
-                          src={product.image}
+                          src={product.image_url}
                           alt={product.name}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 cursor-pointer"
+                          onError={(e) => {
+                            console.error("Image load error for:", product.image_url);
+                            e.currentTarget.src = '/header.png'; // フォールバック画像
+                          }}
                         />
                         
                         {/* Badges */}
@@ -505,7 +436,7 @@ const PreservedFlowers = () => {
 
                     {/* Price */}
                     <div className="flex items-center gap-2">
-                      <span className="text-xl font-bold text-preserved-rose">
+                      <span className="text-xl font-bold text-charcoal">
                         {formatPrice(product.price)}
                       </span>
                       {product.originalPrice && (

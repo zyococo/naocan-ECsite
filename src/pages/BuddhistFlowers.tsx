@@ -3,6 +3,7 @@ import { Heart, ShoppingCart, Eye, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useFavorites } from '../context/FavoritesContext';
+import { useProducts } from '../hooks/useSupabase';
 
 const BuddhistFlowers = () => {
   const [filters, setFilters] = useState({
@@ -14,99 +15,10 @@ const BuddhistFlowers = () => {
   const [sortBy, setSortBy] = useState('popular');
   const { addItem } = useCart();
   const { addFavorite, removeFavorite, isFavorite } = useFavorites();
+  const { products, loading, error } = useProducts();
 
-  const products = [
-    {
-      id: 1,
-      name: 'プリザーブド白菊と紫蘭の仏花',
-      price: 4800,
-      originalPrice: 5200,
-      image: 'https://images.pexels.com/photos/1070357/pexels-photo-1070357.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-      rating: 4.8,
-      reviews: 156,
-      tags: ['人気', '法事'],
-      description: '伝統的な白菊と紫蘭を使用したプリザーブド仏花です。',
-      isSale: true,
-      color: 'white',
-      size: 'medium',
-      flower: 'chrysanthemum'
-    },
-    {
-      id: 4,
-      name: 'プリザーブド蓮の花・供養セット',
-      price: 7200,
-      originalPrice: 8000,
-      image: 'https://images.pexels.com/photos/1070360/pexels-photo-1070360.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-      rating: 4.6,
-      reviews: 78,
-      tags: ['供養', '法要'],
-      description: '神聖な蓮の花を中心としたプリザーブド供養用セットです。',
-      isSale: true,
-      color: 'pink',
-      size: 'large',
-      flower: 'lotus'
-    },
-    {
-      id: 6,
-      name: 'プリザーブドお悔やみの花・白ゆり',
-      price: 5400,
-      originalPrice: null,
-      image: 'https://images.pexels.com/photos/2072046/pexels-photo-2072046.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-      rating: 4.7,
-      reviews: 167,
-      tags: ['お悔やみ'],
-      description: '清楚な白ゆりを使用したプリザーブドお悔やみ花です。',
-      isSale: false,
-      color: 'white',
-      size: 'medium',
-      flower: 'lily'
-    },
-    {
-      id: 9,
-      name: 'プリザーブド季節の仏花・春',
-      price: 3800,
-      originalPrice: null,
-      image: 'https://images.pexels.com/photos/1070357/pexels-photo-1070357.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-      rating: 4.5,
-      reviews: 92,
-      tags: ['季節限定', '春'],
-      description: '春の花々を使用したプリザーブド季節仏花です。',
-      isSale: false,
-      color: 'mixed',
-      size: 'small',
-      flower: 'seasonal'
-    },
-    {
-      id: 10,
-      name: 'プリザーブド高級仏花・特選',
-      price: 12000,
-      originalPrice: null,
-      image: 'https://images.pexels.com/photos/1070360/pexels-photo-1070360.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-      rating: 4.9,
-      reviews: 45,
-      tags: ['高級', '特選'],
-      description: '厳選された高級花材を使用したプリザーブド特別仏花です。',
-      isSale: false,
-      color: 'purple',
-      size: 'large',
-      flower: 'mixed'
-    },
-    {
-      id: 11,
-      name: 'プリザーブドミニ仏花セット',
-      price: 2800,
-      originalPrice: null,
-      image: 'https://images.pexels.com/photos/2072046/pexels-photo-2072046.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-      rating: 4.4,
-      reviews: 203,
-      tags: ['コンパクト', 'お手軽'],
-      description: 'コンパクトサイズのプリザーブド仏花セットです。',
-      isSale: false,
-      color: 'white',
-      size: 'small',
-      flower: 'chrysanthemum'
-    }
-  ];
+  // 仏花カテゴリの商品のみをフィルタリング
+  const buddhistProducts = products.filter(product => product.category === 'buddhist');
 
   const filterOptions = {
     budget: [
@@ -120,6 +32,7 @@ const BuddhistFlowers = () => {
       { value: 'white', label: '白' },
       { value: 'pink', label: 'ピンク' },
       { value: 'purple', label: '紫' },
+      { value: 'yellow', label: '黄' },
       { value: 'mixed', label: 'ミックス' }
     ],
     size: [
@@ -133,6 +46,7 @@ const BuddhistFlowers = () => {
       { value: 'chrysanthemum', label: '菊' },
       { value: 'lily', label: 'ゆり' },
       { value: 'lotus', label: '蓮' },
+      { value: 'hydrangea', label: 'あじさい' },
       { value: 'seasonal', label: '季節の花' },
       { value: 'mixed', label: 'ミックス' }
     ]
@@ -147,7 +61,7 @@ const BuddhistFlowers = () => {
 
   // Filter and sort products
   const filteredAndSortedProducts = useMemo(() => {
-    let filtered = products.filter(product => {
+    let filtered = buddhistProducts.filter(product => {
       // Budget filter
       if (filters.budget !== 'all') {
         if (filters.budget === 'low' && product.price > 3000) return false;
@@ -187,7 +101,7 @@ const BuddhistFlowers = () => {
     });
 
     return filtered;
-  }, [filters, sortBy]);
+  }, [filters, sortBy, buddhistProducts]);
 
   const handleFilterChange = (filterType: string, value: string) => {
     setFilters(prev => ({
@@ -223,8 +137,8 @@ const BuddhistFlowers = () => {
       id: product.id,
       name: product.name,
       price: product.price,
-      originalPrice: product.originalPrice,
-      image: product.image,
+      originalPrice: product.original_price,
+      image: product.image_url,
       category: 'buddhist'
     });
   };
@@ -237,14 +151,57 @@ const BuddhistFlowers = () => {
         id: product.id,
         name: product.name,
         price: product.price,
-        originalPrice: product.originalPrice,
-        image: product.image,
+        originalPrice: product.original_price,
+        image: product.image_url,
         category: 'buddhist',
         rating: product.rating,
         reviews: product.reviews
       });
     }
   };
+
+  // ローディング状態
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="relative w-20 h-20 mx-auto mb-6">
+            <div className="absolute inset-0 flex items-center justify-center">
+              <svg 
+                className="w-12 h-12 text-primary-dark-green animate-pulse" 
+                fill="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM12 18C13.1 18 14 18.9 14 20C14 21.1 13.1 22 12 22C10.9 22 10 21.1 10 20C10 18.9 10.9 18 12 18ZM4 12C4 10.9 4.9 10 6 10C7.1 10 8 10.9 8 12C8 13.1 7.1 14 6 14C4.9 14 4 13.1 4 12ZM18 12C18 10.9 18.9 10 20 10C21.1 10 22 10.9 22 12C22 13.1 21.1 14 20 14C18.9 14 18 13.1 18 12ZM7.05 7.05C7.05 5.95 7.95 5.05 9.05 5.05C10.15 5.05 11.05 5.95 11.05 7.05C11.05 8.15 10.15 9.05 9.05 9.05C7.95 9.05 7.05 8.15 7.05 7.05ZM14.95 7.05C14.95 5.95 15.85 5.05 16.95 5.05C18.05 5.05 18.95 5.95 18.95 7.05C18.95 8.15 18.05 9.05 16.95 9.05C15.85 9.05 14.95 8.15 14.95 7.05ZM7.05 16.95C7.05 15.85 7.95 14.95 9.05 14.95C10.15 14.95 11.05 15.85 11.05 16.95C11.05 18.05 10.15 18.95 9.05 18.95C7.95 18.95 7.05 18.05 7.05 16.95ZM14.95 16.95C14.95 15.85 15.85 14.95 16.95 14.95C18.05 14.95 18.95 15.85 18.95 16.95C18.95 18.05 18.05 18.95 16.95 18.95C15.85 9.05 14.95 18.05 14.95 16.95Z"/>
+              </svg>
+            </div>
+            <div className="absolute inset-0 border-4 border-primary-gold/30 border-t-primary-gold rounded-full animate-spin"></div>
+          </div>
+          <p className="text-gray-600 text-lg">商品を読み込み中...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // エラー状態
+  if (error) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="bg-red-50 border border-red-200 rounded-lg p-8 max-w-2xl mx-auto">
+            <h3 className="text-xl font-semibold text-red-800 mb-2">エラーが発生しました</h3>
+            <p className="text-red-700 mb-4">{error}</p>
+            <button
+              onClick={() => window.location.reload()}
+              className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-lg transition-colors duration-200"
+            >
+              再読み込み
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -387,9 +344,13 @@ const BuddhistFlowers = () => {
                     <Link to={`/product/${product.id}`} className="block">
                       <div className="relative aspect-square overflow-hidden">
                         <img
-                          src={product.image}
+                          src={product.image_url}
                           alt={product.name}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 cursor-pointer"
+                          onError={(e) => {
+                            console.error("Image load error for:", product.image_url);
+                            e.currentTarget.src = '/header.png'; // フォールバック画像
+                          }}
                         />
                         
                         {/* Badges */}
@@ -476,7 +437,7 @@ const BuddhistFlowers = () => {
 
                     {/* Price */}
                     <div className="flex items-center gap-2">
-                      <span className="text-xl font-bold text-primary-purple">
+                      <span className="text-xl font-bold text-charcoal">
                         {formatPrice(product.price)}
                       </span>
                       {product.originalPrice && (

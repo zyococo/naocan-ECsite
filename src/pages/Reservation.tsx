@@ -1,11 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Calendar, Clock, User, Phone, Mail, MessageSquare, CheckCircle, AlertCircle, Palette, Heart, Flower } from 'lucide-react';
+import { Calendar, Clock, User, Phone, Mail, MessageSquare, CheckCircle, AlertCircle, Palette, Heart, Flower, Package } from 'lucide-react';
 import ReservationCalendar from '../components/ReservationCalendar';
 import { useAvailableSlots, useReservations } from '../hooks/useSupabase';
 import { supabase } from '../lib/supabase';
 import { sendReservationNotification, sendReservationConfirmation } from '../services/emailService';
 
 const Reservation = () => {
+  // デバッグ情報を追加
+  useEffect(() => {
+    console.log('Environment variables check:');
+    console.log('VITE_SUPABASE_URL:', import.meta.env.VITE_SUPABASE_URL);
+    console.log('VITE_SUPABASE_ANON_KEY:', import.meta.env.VITE_SUPABASE_ANON_KEY ? 'Set' : 'Not set');
+    console.log('Supabase client:', supabase);
+  }, []);
+
   const { slots, loading: slotsLoading, refetch: refetchSlots } = useAvailableSlots();
   const { addReservation } = useReservations();
   const [showCalendar, setShowCalendar] = useState(true);
@@ -27,6 +35,8 @@ const Reservation = () => {
 
   // リアルタイムで予約枠の変更を監視
   useEffect(() => {
+    console.log('Setting up real-time subscription...');
+    
     const channel = supabase
       .channel('available_slots_changes')
       .on(
@@ -41,9 +51,12 @@ const Reservation = () => {
           refetchSlots();
         }
       )
-      .subscribe();
+      .subscribe((status) => {
+        console.log('Subscription status:', status);
+      });
 
     return () => {
+      console.log('Cleaning up real-time subscription...');
       supabase.removeChannel(channel);
     };
   }, [refetchSlots]);
@@ -304,8 +317,21 @@ const Reservation = () => {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-primary-dark-green border-t-transparent animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600">予約枠を読み込み中...</p>
+          <div className="relative w-20 h-20 mx-auto mb-6">
+            {/* 花のアイコン */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <svg 
+                className="w-12 h-12 text-primary-dark-green animate-pulse" 
+                fill="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM12 18C13.1 18 14 18.9 14 20C14 21.1 13.1 22 12 22C10.9 22 10 21.1 10 20C10 18.9 10.9 18 12 18ZM4 12C4 10.9 4.9 10 6 10C7.1 10 8 10.9 8 12C8 13.1 7.1 14 6 14C4.9 14 4 13.1 4 12ZM18 12C18 10.9 18.9 10 20 10C21.1 10 22 10.9 22 12C22 13.1 21.1 14 20 14C18.9 14 18 13.1 18 12ZM7.05 7.05C7.05 5.95 7.95 5.05 9.05 5.05C10.15 5.05 11.05 5.95 11.05 7.05C11.05 8.15 10.15 9.05 9.05 9.05C7.95 9.05 7.05 8.15 7.05 7.05ZM14.95 7.05C14.95 5.95 15.85 5.05 16.95 5.05C18.05 5.05 18.95 5.95 18.95 7.05C18.95 8.15 18.05 9.05 16.95 9.05C15.85 9.05 14.95 8.15 14.95 7.05ZM7.05 16.95C7.05 15.85 7.95 14.95 9.05 14.95C10.15 14.95 11.05 15.85 11.05 16.95C11.05 18.05 10.15 18.95 9.05 18.95C7.95 18.95 7.05 18.05 7.05 16.95ZM14.95 16.95C14.95 15.85 15.85 14.95 16.95 14.95C18.05 14.95 18.95 15.85 18.95 16.95C18.95 18.05 18.05 18.95 16.95 18.95C15.85 18.95 14.95 18.05 14.95 16.95Z"/>
+              </svg>
+            </div>
+            {/* 回転するリング */}
+            <div className="absolute inset-0 border-4 border-primary-gold/30 border-t-primary-gold rounded-full animate-spin"></div>
+          </div>
+          <p className="text-gray-600 text-lg">予約枠を読み込み中...</p>
         </div>
       </div>
     );
@@ -328,10 +354,10 @@ const Reservation = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
-              <Palette size={48} className="mx-auto text-preserved-rose mb-6" />
-              <h3 className="text-xl font-bold text-charcoal mb-4">花器選び</h3>
+              <Package size={48} className="mx-auto text-primary-dark-green mb-6" />
+              <h3 className="text-xl font-bold text-charcoal mb-4">花・花器選び</h3>
               <p className="text-gray-600">
-                有田焼などの上質な花器から、お客様の好みに合わせてお選びいただけます。
+                100種類以上の花器と豊富な花材から、お客様の好みに合わせてお選びいただけます。
               </p>
             </div>
             <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
@@ -342,7 +368,7 @@ const Reservation = () => {
               </p>
             </div>
             <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
-              <Flower size={48} className="mx-auto text-primary-gold mb-6" />
+              <Heart size={48} className="mx-auto text-primary-gold mb-6" />
               <h3 className="text-xl font-bold text-charcoal mb-4">オリジナル制作</h3>
               <p className="text-gray-600">
                 世界に一つだけのオリジナルプリザーブドフラワーを一緒にお作りします。
@@ -361,6 +387,13 @@ const Reservation = () => {
               <p className="text-lg text-gray-600 mb-4">
                 カレンダーから希望の日時をクリックしてください。
               </p>
+              
+              {/* デバッグ情報 */}
+              <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 max-w-2xl mx-auto mb-4">
+                <p className="text-sm text-gray-600">
+                  予約枠数: {slots?.length || 0}
+                </p>
+              </div>
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 max-w-2xl mx-auto">
                 <div className="flex flex-wrap justify-center gap-4 text-sm">
                   <div className="flex items-center">
@@ -379,11 +412,30 @@ const Reservation = () => {
               </div>
             </div>
             
-            <ReservationCalendar
-              isAdmin={false}
-              onSlotClick={handleSlotClick}
-              availableSlots={slots}
-            />
+            {slots && slots.length > 0 ? (
+              <ReservationCalendar
+                isAdmin={false}
+                onSlotClick={handleSlotClick}
+                availableSlots={slots}
+              />
+            ) : (
+              <div className="text-center py-12">
+                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-8 max-w-2xl mx-auto">
+                  <AlertCircle className="w-16 h-16 text-yellow-500 mx-auto mb-4" />
+                  <h3 className="text-xl font-semibold text-yellow-800 mb-2">予約枠が見つかりません</h3>
+                  <p className="text-yellow-700 mb-4">
+                    現在、利用可能な予約枠がありません。<br />
+                    管理者にお問い合わせいただくか、後日再度ご確認ください。
+                  </p>
+                  <button
+                    onClick={() => window.location.reload()}
+                    className="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-2 rounded-lg transition-colors duration-200"
+                  >
+                    再読み込み
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         ) : (
           /* Form View */

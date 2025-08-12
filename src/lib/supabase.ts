@@ -7,15 +7,41 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 let supabase: any;
 
 // 環境変数が正しく設定されているかチェック
+console.log("Supabase configuration check:");
+console.log("URL:", supabaseUrl);
+console.log("Key exists:", !!supabaseAnonKey);
+console.log("Key length:", supabaseAnonKey?.length);
+console.log("Key starts with:", supabaseAnonKey?.substring(0, 20) + "...");
+console.log("Environment variables loaded:", {
+  VITE_SUPABASE_URL: import.meta.env.VITE_SUPABASE_URL,
+  VITE_SUPABASE_ANON_KEY: import.meta.env.VITE_SUPABASE_ANON_KEY
+    ? "Set"
+    : "Not set",
+});
+
 if (!supabaseUrl || !supabaseAnonKey) {
   console.warn(
     "Missing Supabase environment variables. Some features may not work properly."
   );
+  console.error("Supabase URL:", supabaseUrl);
+  console.error("Supabase Key exists:", !!supabaseAnonKey);
   // エラーを投げずに、ダミーのクライアントを作成
   supabase = createClient("https://dummy.supabase.co", "dummy-key");
 } else {
   // 実際のSupabaseクライアントを作成
-  supabase = createClient(supabaseUrl, supabaseAnonKey);
+  try {
+    supabase = createClient(supabaseUrl, supabaseAnonKey);
+    console.log("Supabase client created successfully");
+    console.log("Client object:", supabase);
+
+    // クライアントの動作確認
+    supabase.auth.getSession().then(({ data, error }) => {
+      console.log("Supabase auth test:", { data, error });
+    });
+  } catch (error) {
+    console.error("Error creating Supabase client:", error);
+    supabase = createClient("https://dummy.supabase.co", "dummy-key");
+  }
 }
 
 export { supabase };

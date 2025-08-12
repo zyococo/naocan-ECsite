@@ -3,124 +3,19 @@ import { Heart, ShoppingCart, Eye, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useFavorites } from '../context/FavoritesContext';
+import { useProducts } from '../hooks/useSupabase';
 
 const ProductGrid = () => {
   const [activeFilter, setActiveFilter] = useState('all');
   const [hoveredProduct, setHoveredProduct] = useState<number | null>(null);
   const { addItem } = useCart();
   const { addFavorite, removeFavorite, isFavorite } = useFavorites();
+  const { products, loading, error } = useProducts();
 
   const filters = [
-    { id: 'all', name: 'すべて', count: 16 },
-    { id: 'buddhist', name: '仏花', count: 8 },
-    { id: 'preserved', name: 'プリザーブド', count: 8 }
-  ];
-
-  const products = [
-    {
-      id: 1,
-      name: '白菊と紫蘭の仏花',
-      category: 'buddhist',
-      price: 4800,
-      originalPrice: 5200,
-      image: 'https://images.pexels.com/photos/1070357/pexels-photo-1070357.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-      rating: 4.8,
-      reviews: 156,
-      tags: ['人気', '法事'],
-      isNew: false,
-      isSale: true
-    },
-    {
-      id: 2,
-      name: 'プリザーブドローズ・エレガント',
-      category: 'preserved',
-      price: 12800,
-      originalPrice: null,
-      image: 'https://images.pexels.com/photos/931162/pexels-photo-931162.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-      rating: 4.9,
-      reviews: 89,
-      tags: ['新作', 'ギフト'],
-      isNew: true,
-      isSale: false
-    },
-    {
-      id: 4,
-      name: '蓮の花・供養セット',
-      category: 'buddhist',
-      price: 7200,
-      originalPrice: 8000,
-      image: 'https://images.pexels.com/photos/1070360/pexels-photo-1070360.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-      rating: 4.6,
-      reviews: 78,
-      tags: ['供養', '法要'],
-      isNew: false,
-      isSale: true
-    },
-    {
-      id: 5,
-      name: 'プリザーブド・ハートボックス',
-      category: 'preserved',
-      price: 9800,
-      originalPrice: null,
-      image: 'https://images.pexels.com/photos/1416530/pexels-photo-1416530.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-      rating: 4.8,
-      reviews: 134,
-      tags: ['記念日', '贈り物'],
-      isNew: false,
-      isSale: false
-    },
-    {
-      id: 6,
-      name: 'お悔やみの花・白ゆり',
-      category: 'buddhist',
-      price: 5400,
-      originalPrice: null,
-      image: 'https://images.pexels.com/photos/2072046/pexels-photo-2072046.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-      rating: 4.7,
-      reviews: 167,
-      tags: ['お悔やみ'],
-      isNew: false,
-      isSale: false
-    },
-    {
-      id: 7,
-      name: 'プリザーブド・ガーデンドーム',
-      category: 'preserved',
-      price: 15800,
-      originalPrice: null,
-      image: 'https://images.pexels.com/photos/1198264/pexels-photo-1198264.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-      rating: 4.9,
-      reviews: 56,
-      tags: ['高級', '新作'],
-      isNew: true,
-      isSale: false
-    },
-    {
-      id: 9,
-      name: '季節の仏花・春',
-      category: 'buddhist',
-      price: 3800,
-      originalPrice: null,
-      image: 'https://images.pexels.com/photos/1070357/pexels-photo-1070357.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-      rating: 4.5,
-      reviews: 92,
-      tags: ['季節限定', '春'],
-      isNew: false,
-      isSale: false
-    },
-    {
-      id: 10,
-      name: 'プリザーブド・ブルーローズ',
-      category: 'preserved',
-      price: 8800,
-      originalPrice: 9800,
-      image: 'https://images.pexels.com/photos/931162/pexels-photo-931162.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-      rating: 4.7,
-      reviews: 112,
-      tags: ['希少', 'ブルー'],
-      isNew: false,
-      isSale: true
-    }
+    { id: 'all', name: 'すべて', count: products.length },
+    { id: 'buddhist', name: '仏花', count: products.filter(p => p.category === 'buddhist').length },
+    { id: 'preserved', name: 'プリザーブド', count: products.filter(p => p.category === 'preserved').length }
   ];
 
   const filteredProducts = activeFilter === 'all' 
@@ -154,8 +49,8 @@ const ProductGrid = () => {
       id: product.id,
       name: product.name,
       price: product.price,
-      originalPrice: product.originalPrice,
-      image: product.image,
+      originalPrice: product.original_price,
+      image: product.image_url,
       category: product.category
     });
   };
@@ -168,14 +63,61 @@ const ProductGrid = () => {
         id: product.id,
         name: product.name,
         price: product.price,
-        originalPrice: product.originalPrice,
-        image: product.image,
+        originalPrice: product.original_price,
+        image: product.image_url,
         category: product.category,
         rating: product.rating,
         reviews: product.reviews
       });
     }
   };
+
+  // ローディング状態
+  if (loading) {
+    return (
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <div className="relative w-20 h-20 mx-auto mb-6">
+              <div className="absolute inset-0 flex items-center justify-center">
+                <svg 
+                  className="w-12 h-12 text-primary-dark-green animate-pulse" 
+                  fill="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM12 18C13.1 18 14 18.9 14 20C14 21.1 13.1 22 12 22C10.9 22 10 21.1 10 20C10 18.9 10.9 18 12 18ZM4 12C4 10.9 4.9 10 6 10C7.1 10 8 10.9 8 12C8 13.1 7.1 14 6 14C4.9 14 4 13.1 4 12ZM18 12C18 10.9 18.9 10 20 10C21.1 10 22 10.9 22 12C22 13.1 21.1 14 20 14C18.9 14 18 13.1 18 12ZM7.05 7.05C7.05 5.95 7.95 5.05 9.05 5.05C10.15 5.05 11.05 5.95 11.05 7.05C11.05 8.15 10.15 9.05 9.05 9.05C7.95 9.05 7.05 8.15 7.05 7.05ZM14.95 7.05C14.95 5.95 15.85 5.05 16.95 5.05C18.05 5.05 18.95 5.95 18.95 7.05C18.95 8.15 18.05 9.05 16.95 9.05C15.85 9.05 14.95 8.15 14.95 7.05ZM7.05 16.95C7.05 15.85 7.95 14.95 9.05 14.95C10.15 14.95 11.05 15.85 11.05 16.95C11.05 18.05 10.15 18.95 9.05 18.95C7.95 18.95 7.05 18.05 7.05 16.95ZM14.95 16.95C14.95 15.85 15.85 14.95 16.95 14.95C18.05 14.95 18.95 15.85 18.95 16.95C18.95 18.05 18.05 18.95 16.95 18.95C15.85 9.05 14.95 18.05 14.95 16.95Z"/>
+                </svg>
+              </div>
+              <div className="absolute inset-0 border-4 border-primary-gold/30 border-t-primary-gold rounded-full animate-spin"></div>
+            </div>
+            <p className="text-gray-600 text-lg">商品を読み込み中...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // エラー状態
+  if (error) {
+    return (
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <div className="bg-red-50 border border-red-200 rounded-lg p-8 max-w-2xl mx-auto">
+              <h3 className="text-xl font-semibold text-red-800 mb-2">エラーが発生しました</h3>
+              <p className="text-red-700 mb-4">{error}</p>
+              <button
+                onClick={() => window.location.reload()}
+                className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-lg transition-colors duration-200"
+              >
+                再読み込み
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-16 bg-white">
@@ -221,9 +163,13 @@ const ProductGrid = () => {
                 <Link to={`/product/${product.id}`} className="block">
                   <div className="relative aspect-square overflow-hidden">
                     <img
-                      src={product.image}
+                      src={product.image_url}
                       alt={product.name}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 cursor-pointer"
+                      onError={(e) => {
+                        console.error("Image load error for:", product.image_url);
+                        e.currentTarget.src = '/header.png'; // フォールバック画像
+                      }}
                     />
                     
                     {/* Badges */}
@@ -314,7 +260,7 @@ const ProductGrid = () => {
 
                 {/* Price */}
                 <div className="flex items-center gap-2">
-                  <span className="text-xl font-bold text-primary-purple">
+                  <span className="text-xl font-bold text-charcoal">
                     {formatPrice(product.price)}
                   </span>
                   {product.originalPrice && (

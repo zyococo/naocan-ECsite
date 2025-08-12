@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import type { Database } from "../lib/supabase";
+import { mockProducts } from "../lib/mockProducts";
 
 type Tables = Database["public"]["Tables"];
 
@@ -16,18 +17,101 @@ export function useProducts() {
 
   const fetchProducts = async () => {
     try {
-      setLoading(true);
-      const { data, error } = await supabase
-        .from("products")
-        .select("*")
-        .eq("is_active", true)
-        .order("created_at", { ascending: false });
+      console.log("Fetching products...");
+      console.log("Supabase client:", supabase);
+      console.log("Supabase URL:", supabase.supabaseUrl);
+      console.log("Supabase Key length:", supabase.supabaseKey?.length);
 
-      if (error) throw error;
-      setProducts(data || []);
+      // 開発環境でモックデータを使用するオプション
+      if (
+        import.meta.env.DEV &&
+        import.meta.env.VITE_USE_MOCK_DATA === "true"
+      ) {
+        console.log("Using mock data in development mode");
+        setProducts(mockProducts);
+        setLoading(false);
+        return;
+      }
+
+      setLoading(true);
+
+      // タイムアウトを設定（30秒に延長）
+      const timeoutPromise = new Promise((_, reject) => {
+        setTimeout(() => reject(new Error("Request timeout")), 30000);
+      });
+
+      // まず、Supabaseの接続状況を確認
+      console.log("Testing basic connection...");
+
+      try {
+        // より短いタイムアウトでテスト
+        const quickTimeout = new Promise((_, reject) => {
+          setTimeout(() => reject(new Error("Quick timeout")), 5000);
+        });
+
+        const testPromise = supabase.from("products").select("id").limit(1);
+
+        console.log("Executing test query...");
+        const { data: testData, error: testError } = await Promise.race([
+          testPromise,
+          quickTimeout,
+        ]);
+
+        console.log("Test query result:", { testData, testError });
+
+        if (testError) {
+          console.error("Test query failed:", testError);
+          throw testError;
+        }
+
+        // テストが成功したら、実際の商品データを取得
+        console.log("Test successful, fetching full product data...");
+        const productsPromise = supabase
+          .from("products")
+          .select("*")
+          .eq("is_active", true)
+          .order("created_at", { ascending: false });
+
+        const { data, error } = await Promise.race([
+          productsPromise,
+          timeoutPromise,
+        ]);
+
+        console.log("Products fetch response:", { data, error });
+        console.log("Data length:", data?.length);
+        console.log("Error details:", error);
+
+        if (error) {
+          console.error("Supabase error:", error);
+          throw error;
+        }
+
+        console.log("Products loaded:", data?.length || 0, "items");
+        console.log("First product:", data?.[0]);
+        setProducts(data || []);
+      } catch (testErr) {
+        console.error("Test failed:", testErr);
+        throw testErr;
+      }
     } catch (err) {
+      console.error("Error fetching products:", err);
       setError(err instanceof Error ? err.message : "An error occurred");
+
+      // エラーが発生した場合、空の配列を設定してローディングを停止
+      console.log("Setting empty products array due to error");
+      setProducts([]);
+
+      // ネットワークエラーの場合は、再試行を提案
+      if (err instanceof Error && err.message.includes("timeout")) {
+        console.log(
+          "Network timeout detected. Consider checking your internet connection."
+        );
+        console.log("Using mock products as fallback...");
+        setProducts(mockProducts);
+        setError(null);
+      }
     } finally {
+      console.log("Setting loading to false");
       setLoading(false);
     }
   };
@@ -43,6 +127,8 @@ export const useAvailableSlots = () => {
   useEffect(() => {
     const fetchSlots = async () => {
       try {
+        console.log("Fetching available slots...");
+        console.log("Supabase client:", supabase);
         setLoading(true);
         const { data, error } = await supabase
           .from("available_slots")
@@ -50,10 +136,14 @@ export const useAvailableSlots = () => {
           .eq("is_active", true)
           .order("date", { ascending: true });
 
+        console.log("Supabase response:", { data, error });
+
         if (error) {
           console.warn("Error fetching slots:", error);
           setError(error.message);
         } else {
+          console.log("Slots fetched successfully:", data);
+          console.log("Number of slots:", data?.length || 0);
           setSlots(data || []);
         }
       } catch (err) {
@@ -67,7 +157,34 @@ export const useAvailableSlots = () => {
     fetchSlots();
   }, []);
 
-  return { slots, loading, error };
+  const refetch = async () => {
+    try {
+      console.log("Refetching available slots...");
+      setLoading(true);
+      const { data, error } = await supabase
+        .from("available_slots")
+        .select("*")
+        .eq("is_active", true)
+        .order("date", { ascending: true });
+
+      console.log("Supabase refetch response:", { data, error });
+
+      if (error) {
+        console.warn("Error refetching slots:", error);
+        setError(error.message);
+      } else {
+        console.log("Slots refetched successfully:", data);
+        setSlots(data || []);
+      }
+    } catch (err) {
+      console.warn("Exception refetching slots:", err);
+      setError("Failed to refetch slots");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { slots, loading, error, refetch };
 };
 
 export const useReservations = () => {
@@ -106,7 +223,33 @@ export const useReservations = () => {
     fetchReservations();
   }, []);
 
-  return { reservations, loading, error };
+  const addReservation = async (reservationData: any) => {
+    try {
+      console.log("Adding reservation:", reservationData);
+      const { data, error } = await supabase
+        .from("reservations")
+        .insert(reservationData)
+        .select()
+        .single();
+
+      if (error) {
+        console.warn("Error adding reservation:", error);
+        throw error;
+      } else {
+        console.log("Reservation added successfully:", data);
+        setReservations((prev) => [data, ...prev]);
+        return { success: true, data };
+      }
+    } catch (err) {
+      console.warn("Exception adding reservation:", err);
+      return {
+        success: false,
+        error: err instanceof Error ? err.message : "Failed to add reservation",
+      };
+    }
+  };
+
+  return { reservations, loading, error, addReservation };
 };
 
 // User profile hook

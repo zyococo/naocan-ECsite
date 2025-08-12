@@ -22,6 +22,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
 import Reservation from './pages/Reservation';
+import Success from './pages/Success';
 import AuthCallback from './pages/AuthCallback';
 import SpecifiedCommercialCode from './pages/legal/SpecifiedCommercialCode';
 import PrivacyPolicy from './pages/legal/PrivacyPolicy';
@@ -52,11 +53,11 @@ function ScrollToTop() {
 
 function App() {
   return (
-    <AuthProvider>
-      <FavoritesProvider>
-        <CartProvider>
-          <AdminProvider>
-            <Router>
+    <Router>
+      <AuthProvider>
+        <FavoritesProvider>
+          <CartProvider>
+            <AdminProvider>
               <ScrollToTop />
               <Routes>
                 {/* Admin Routes - Completely Separate */}
@@ -84,6 +85,7 @@ function App() {
                   <Route path="contact" element={<Contact />} />
                   <Route path="guide" element={<Guide />} />
                   <Route path="reservation" element={<Reservation />} />
+                  <Route path="success" element={<Success />} />
                   <Route path="product/:id" element={<ProductDetail />} />
                   <Route path="cart" element={<Cart />} />
                   <Route path="favorites" element={<Favorites />} />
@@ -96,11 +98,11 @@ function App() {
                   <Route path="legal/terms-of-service" element={<TermsOfService />} />
                 </Route>
               </Routes>
-            </Router>
-          </AdminProvider>
-        </CartProvider>
-      </FavoritesProvider>
-    </AuthProvider>
+            </AdminProvider>
+          </CartProvider>
+        </FavoritesProvider>
+      </AuthProvider>
+    </Router>
   );
 }
 

@@ -187,7 +187,7 @@ const ProductDetail = () => {
 
               {/* Price */}
               <div className="flex items-center gap-3 mb-8">
-                <span className="text-3xl font-bold text-primary-purple">
+                <span className="text-3xl font-bold text-charcoal">
                   {formatPrice(product.price)}
                 </span>
                 {product.originalPrice && (

@@ -1,10 +1,51 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Trash2, Plus, Minus, ArrowLeft, ShoppingBag } from 'lucide-react';
+import { Trash2, Plus, Minus, ArrowLeft, ShoppingBag, Loader } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import { stripePromise } from '../lib/stripe';
+import { createCheckoutSession } from '../lib/mockStripe';
 
 const Cart = () => {
   const { state, removeItem, updateQuantity, clearCart } = useCart();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleCheckout = async () => {
+    if (state.items.length === 0) {
+      alert('カートに商品がありません。');
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      // まずテストエンドポイントを確認
+      console.log('Testing Netlify Functions...');
+      const testResponse = await fetch('/.netlify/functions/test');
+      if (!testResponse.ok) {
+        throw new Error(`Netlify Functions test failed: ${testResponse.status}`);
+      }
+      const testData = await testResponse.json();
+      console.log('Test response:', testData);
+
+      // チェックアウトセッションを作成
+      console.log('Creating checkout session...');
+      const session = await createCheckoutSession(
+        state.items,
+        `${window.location.origin}/success`,
+        `${window.location.origin}/cart`
+      );
+      
+      // Stripeのチェックアウトページにリダイレクト
+      console.log('Redirecting to Stripe checkout:', session.url);
+      window.location.href = session.url;
+      
+    } catch (error) {
+      console.error('Checkout error:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      alert(`決済処理中にエラーが発生しました: ${errorMessage}`);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('ja-JP', {
@@ -129,7 +170,7 @@ const Cart = () => {
                       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                         {/* Price */}
                         <div className="flex items-center gap-2">
-                          <span className="text-xl font-bold text-primary-purple">
+                          <span className="text-xl font-bold text-charcoal">
                             {formatPrice(item.price)}
                           </span>
                           {item.originalPrice && (
@@ -213,12 +254,24 @@ const Cart = () => {
                 </div>
               </div>
 
-              <button className="w-full bg-primary-dark-green hover:bg-primary-navy text-white py-4 rounded-full font-semibold transition-colors duration-300 mb-4">
-                チェックアウト
+              <button 
+                onClick={handleCheckout}
+                disabled={isLoading}
+                className="w-full bg-primary-dark-green hover:bg-primary-navy disabled:bg-gray-400 text-white py-4 rounded-full font-semibold transition-colors duration-300 mb-4 flex items-center justify-center gap-2"
+              >
+                {isLoading ? (
+                  <>
+                    <Loader size={20} className="animate-spin" />
+                    処理中...
+                  </>
+                                  ) : (
+                    '決済ページへ'
+                  )}
               </button>
 
               <div className="text-center text-sm text-gray-500">
-                <p>安全な決済システムを使用しています</p>
+                <p>Stripeの安全な決済システムを使用しています</p>
+                <p className="mt-1">決済情報の管理はStripeが行います</p>
               </div>
 
               {/* Payment Methods */}
