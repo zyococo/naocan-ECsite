@@ -79,7 +79,7 @@ export const createCheckoutSession = async (
             price: item.price,
             quantity: item.quantity,
             image: item.image,
-            description: item.description,
+            // descriptionはStripe側で処理するため、ここでは送信しない
           })),
           success_url: successUrl,
           cancel_url: cancelUrl,

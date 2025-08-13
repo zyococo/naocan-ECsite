@@ -140,7 +140,7 @@ const Header = () => {
               >
                 <Heart size={24} />
                 {favoritesState.itemCount > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-primary-sakura text-text-dark text-xs w-6 h-6 flex items-center justify-center">
+                  <span className="absolute -top-1 -right-1 bg-primary-sakura text-text-dark text-xs w-6 h-6 rounded-full flex items-center justify-center">
                     {favoritesState.itemCount}
                   </span>
                 )}
@@ -151,7 +151,7 @@ const Header = () => {
               >
                 <ShoppingCart size={24} />
                 {cartState.itemCount > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-primary-gold text-text-dark text-xs w-6 h-6 flex items-center justify-center">
+                  <span className="absolute -top-1 -right-1 bg-primary-gold text-text-dark text-xs w-6 h-6 rounded-full flex items-center justify-center">
                     {cartState.itemCount}
                   </span>
                 )}

@@ -30,18 +30,38 @@ exports.handler = async (event, context) => {
     const { items, success_url, cancel_url } = JSON.parse(event.body);
 
     // 商品データをStripeの形式に変換
-    const lineItems = items.map((item) => ({
-      price_data: {
-        currency: "jpy",
-        product_data: {
-          name: item.name,
-          images: [item.image],
-          description: item.description || "",
+    const lineItems = items.map((item) => {
+      // 画像URLを完全なURLに変換
+      let imageUrl = item.image;
+      if (imageUrl && !imageUrl.startsWith("http")) {
+        // 相対パスの場合、現在のドメインを追加
+        const baseUrl =
+          process.env.URL ||
+          (process.env.NODE_ENV === "development"
+            ? "http://localhost:8888"
+            : "https://naocan-ecsite.netlify.app");
+        imageUrl = `${baseUrl}${imageUrl}`;
+      }
+
+      const productData = {
+        name: item.name,
+        images: [imageUrl],
+      };
+
+      // descriptionが存在し、空でない場合のみ追加
+      if (item.description && item.description.trim() !== "") {
+        productData.description = item.description;
+      }
+
+      return {
+        price_data: {
+          currency: "jpy",
+          product_data: productData,
+          unit_amount: item.price,
         },
-        unit_amount: item.price,
-      },
-      quantity: item.quantity,
-    }));
+        quantity: item.quantity,
+      };
+    });
 
     // チェックアウトセッションを作成
     const session = await stripe.checkout.sessions.create({
