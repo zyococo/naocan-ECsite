@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Heart, ShoppingCart, Star, Truck, Shield, ArrowLeft, Plus, Minus } from 'lucide-react';
+import { Heart, ShoppingCart, Star, Truck, Shield, ArrowLeft, Plus, Minus, Loader } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useFavorites } from '../context/FavoritesContext';
+import { useProduct } from '../hooks/useProduct';
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -11,38 +12,41 @@ const ProductDetail = () => {
   const [selectedImage, setSelectedImage] = useState(0);
   const { addItem } = useCart();
   const { addFavorite, removeFavorite, isFavorite } = useFavorites();
+  
+  // Supabaseから商品データを取得
+  const { product, loading, error } = useProduct(id || '');
 
-  // Mock product data - in a real app, this would come from an API
-  const product = {
-    id: parseInt(id || '1'),
-    name: 'プリザーブドローズ・エレガント',
-    price: 12800,
-    originalPrice: null,
-    images: [
-      'https://images.pexels.com/photos/931162/pexels-photo-931162.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-      'https://images.pexels.com/photos/1416530/pexels-photo-1416530.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-      'https://images.pexels.com/photos/1198264/pexels-photo-1198264.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop'
-    ],
-    rating: 4.9,
-    reviews: 89,
-    tags: ['新作', 'ギフト'],
-    description: 'エレガントなプリザーブドローズのアレンジメントです。特別な技術で処理された本物のバラが、長期間美しさを保ち続けます。',
-    features: [
-      '高品質なプリザーブドローズを使用',
-      '2-3年間美しさを保持',
-      '水やり不要でお手入れ簡単',
-      '専用ボックス付きでギフトに最適'
-    ],
-    specifications: {
-      size: '約15cm × 15cm × 20cm',
-      weight: '約300g',
-      materials: 'プリザーブドローズ、アーティフィシャルフラワー',
-      origin: '日本製'
-    },
-    category: 'preserved',
-    isNew: true,
-    isSale: false
-  };
+  // ローディング状態
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center">
+          <Loader className="animate-spin mx-auto mb-4 text-primary-dark-green" size={48} />
+          <p className="text-gray-600">商品情報を読み込み中...</p>
+          <p className="text-sm text-gray-500 mt-2">商品ID: {id}</p>
+        </div>
+      </div>
+    );
+  }
+
+  // エラー状態
+  if (error || !product) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-red-600 mb-4">{error || '商品が見つかりません'}</p>
+          <p className="text-sm text-gray-500 mb-4">商品ID: {id}</p>
+          <Link
+            to="/"
+            className="inline-flex items-center text-primary-dark-green hover:text-primary-navy transition-colors duration-200"
+          >
+            <ArrowLeft size={20} className="mr-2" />
+            ホームに戻る
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('ja-JP', {
@@ -73,11 +77,11 @@ const ProductDetail = () => {
   const handleAddToCart = () => {
     for (let i = 0; i < quantity; i++) {
       addItem({
-        id: product.id,
+        id: parseInt(product.id),
         name: product.name,
         price: product.price,
-        originalPrice: product.originalPrice,
-        image: product.images[0],
+        originalPrice: product.original_price,
+        image: product.image_url,
         category: product.category
       });
     }
@@ -86,15 +90,15 @@ const ProductDetail = () => {
   };
 
   const handleToggleFavorite = () => {
-    if (isFavorite(product.id)) {
-      removeFavorite(product.id);
+    if (isFavorite(parseInt(product.id))) {
+      removeFavorite(parseInt(product.id));
     } else {
       addFavorite({
-        id: product.id,
+        id: parseInt(product.id),
         name: product.name,
         price: product.price,
-        originalPrice: product.originalPrice,
-        image: product.images[0],
+        originalPrice: product.original_price,
+        image: product.image_url,
         category: product.category,
         rating: product.rating,
         reviews: product.reviews
@@ -110,7 +114,12 @@ const ProductDetail = () => {
           <div className="flex items-center space-x-2 text-sm">
             <Link to="/" className="text-gray-500 hover:text-primary-purple">ホーム</Link>
             <span className="text-gray-300">/</span>
-            <Link to="/preserved-flowers" className="text-gray-500 hover:text-primary-purple">プリザーブドフラワー</Link>
+            <Link 
+              to={product.category === 'buddhist' ? '/buddhist-flowers' : '/preserved-flowers'} 
+              className="text-gray-500 hover:text-primary-purple"
+            >
+              {product.category === 'buddhist' ? 'プリザーブド仏花' : 'プリザーブドフラワー'}
+            </Link>
             <span className="text-gray-300">/</span>
             <span className="text-charcoal">{product.name}</span>
           </div>
@@ -121,7 +130,7 @@ const ProductDetail = () => {
       <section className="py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link
-            to="/preserved-flowers"
+            to={product.category === 'buddhist' ? '/buddhist-flowers' : '/preserved-flowers'}
             className="inline-flex items-center text-primary-purple hover:text-purple-700 mb-8 transition-colors duration-200"
           >
             <ArrowLeft size={20} className="mr-2" />
@@ -133,29 +142,14 @@ const ProductDetail = () => {
             <div>
               <div className="aspect-square mb-4">
                 <img
-                  src={product.images[selectedImage]}
+                  src={product.image_url}
                   alt={product.name}
                   className="w-full h-full object-cover rounded-2xl shadow-lg"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = '/placeholder-image.jpg'; // フォールバック画像
+                  }}
                 />
-              </div>
-              <div className="grid grid-cols-3 gap-4">
-                {product.images.map((image, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setSelectedImage(index)}
-                    className={`aspect-square rounded-lg overflow-hidden border-2 transition-all duration-200 ${
-                      selectedImage === index 
-                        ? 'border-primary-purple' 
-                        : 'border-gray-200 hover:border-gray-300'
-                    }`}
-                  >
-                    <img
-                      src={image}
-                      alt={`${product.name} ${index + 1}`}
-                      className="w-full h-full object-cover"
-                    />
-                  </button>
-                ))}
               </div>
             </div>
 
@@ -163,7 +157,7 @@ const ProductDetail = () => {
             <div>
               {/* Tags */}
               <div className="flex flex-wrap gap-2 mb-4">
-                {product.tags.map((tag) => (
+                {product.tags && product.tags.map((tag) => (
                   <span
                     key={tag}
                     className="px-3 py-1 bg-bg-cream text-charcoal text-sm rounded-full"
@@ -171,6 +165,16 @@ const ProductDetail = () => {
                     {tag}
                   </span>
                 ))}
+                {product.is_new && (
+                  <span className="px-3 py-1 bg-primary-sakura text-white text-sm rounded-full">
+                    新作
+                  </span>
+                )}
+                {product.is_sale && (
+                  <span className="px-3 py-1 bg-primary-gold text-white text-sm rounded-full">
+                    セール
+                  </span>
+                )}
               </div>
 
               {/* Product Name */}
@@ -179,10 +183,10 @@ const ProductDetail = () => {
               {/* Rating */}
               <div className="flex items-center gap-3 mb-6">
                 <div className="flex">
-                  {renderStars(product.rating)}
+                  {renderStars(product.rating || 0)}
                 </div>
-                <span className="text-lg font-semibold">{product.rating}</span>
-                <span className="text-gray-500">({product.reviews}件のレビュー)</span>
+                <span className="text-lg font-semibold">{product.rating || 0}</span>
+                <span className="text-gray-500">({product.reviews || 0}件のレビュー)</span>
               </div>
 
               {/* Price */}
@@ -190,9 +194,9 @@ const ProductDetail = () => {
                 <span className="text-3xl font-bold text-charcoal">
                   {formatPrice(product.price)}
                 </span>
-                {product.originalPrice && (
+                {product.original_price && (
                   <span className="text-xl text-gray-400 line-through">
-                    {formatPrice(product.originalPrice)}
+                    {formatPrice(product.original_price)}
                   </span>
                 )}
               </div>
@@ -206,12 +210,30 @@ const ProductDetail = () => {
               <div className="mb-8">
                 <h3 className="text-lg font-bold text-charcoal mb-4">商品の特徴</h3>
                 <ul className="space-y-2">
-                  {product.features.map((feature, index) => (
-                    <li key={index} className="flex items-start">
-                      <div className="w-2 h-2 bg-primary-purple rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                      <span className="text-gray-700">{feature}</span>
-                    </li>
-                  ))}
+                  {product.features ? (
+                    product.features.map((feature, index) => (
+                      <li key={index} className="flex items-start">
+                        <div className="w-2 h-2 bg-primary-purple rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                        <span className="text-gray-700">{feature}</span>
+                      </li>
+                    ))
+                  ) : (
+                    // モックデータ用のデフォルト特徴
+                    <>
+                      <li className="flex items-start">
+                        <div className="w-2 h-2 bg-primary-purple rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                        <span className="text-gray-700">高品質な花材を使用</span>
+                      </li>
+                      <li className="flex items-start">
+                        <div className="w-2 h-2 bg-primary-purple rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                        <span className="text-gray-700">長期間美しさを保持</span>
+                      </li>
+                      <li className="flex items-start">
+                        <div className="w-2 h-2 bg-primary-purple rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                        <span className="text-gray-700">お手入れ簡単</span>
+                      </li>
+                    </>
+                  )}
                 </ul>
               </div>
 
@@ -249,7 +271,7 @@ const ProductDetail = () => {
                   <button 
                     onClick={handleToggleFavorite}
                     className={`p-4 border transition-all duration-300 ${
-                      isFavorite(product.id)
+                      isFavorite(parseInt(product.id))
                         ? 'border-primary-sakura bg-primary-sakura/20 hover:bg-primary-sakura/30'
                         : 'border-border-light hover:bg-soft-green'
                     }`}
@@ -257,7 +279,7 @@ const ProductDetail = () => {
                     <Heart 
                       size={20} 
                       className={`${
-                        isFavorite(product.id) 
+                        isFavorite(parseInt(product.id)) 
                           ? 'text-primary-sakura fill-primary-sakura' 
                           : 'text-text-gray'
                       }`} 
@@ -285,22 +307,77 @@ const ProductDetail = () => {
             <h2 className="text-2xl font-bold text-text-dark mb-8 tracking-wider">商品仕様</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
+                <h3 className="font-semibold text-text-dark mb-3 tracking-wide">カテゴリー</h3>
+                <p className="text-text-gray tracking-wide">
+                  {product.category === 'buddhist' ? 'プリザーブド仏花' : 'プリザーブドフラワー'}
+                </p>
+              </div>
+              <div>
                 <h3 className="font-semibold text-text-dark mb-3 tracking-wide">サイズ</h3>
-                <p className="text-text-gray tracking-wide">{product.specifications.size}</p>
+                <p className="text-text-gray tracking-wide">{product.size || '標準サイズ'}</p>
               </div>
               <div>
-                <h3 className="font-semibold text-text-dark mb-3 tracking-wide">重量</h3>
-                <p className="text-text-gray tracking-wide">{product.specifications.weight}</p>
+                <h3 className="font-semibold text-text-dark mb-3 tracking-wide">色</h3>
+                <p className="text-text-gray tracking-wide">{product.color || 'ミックス'}</p>
               </div>
               <div>
-                <h3 className="font-semibold text-text-dark mb-3 tracking-wide">素材</h3>
-                <p className="text-text-gray tracking-wide">{product.specifications.materials}</p>
-              </div>
-              <div>
-                <h3 className="font-semibold text-text-dark mb-3 tracking-wide">製造国</h3>
-                <p className="text-text-gray tracking-wide">{product.specifications.origin}</p>
+                <h3 className="font-semibold text-text-dark mb-3 tracking-wide">花材</h3>
+                <p className="text-text-gray tracking-wide">{product.flower || 'ミックス'}</p>
               </div>
             </div>
+
+            {/* 詳細仕様 */}
+            {product.specifications && (
+              <div className="mt-12">
+                <h3 className="text-xl font-bold text-text-dark mb-6 tracking-wider">詳細仕様</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div>
+                    <h4 className="font-semibold text-text-dark mb-3 tracking-wide">サイズ・重量</h4>
+                    <div className="space-y-2">
+                      <p className="text-text-gray tracking-wide">
+                        <span className="font-medium">寸法:</span> {product.specifications.dimensions}
+                      </p>
+                      <p className="text-text-gray tracking-wide">
+                        <span className="font-medium">重量:</span> {product.specifications.weight}
+                      </p>
+                    </div>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-text-dark mb-3 tracking-wide">花器・素材</h4>
+                    <div className="space-y-2">
+                      <p className="text-text-gray tracking-wide">
+                        <span className="font-medium">花器:</span> {product.specifications.vase_material}
+                      </p>
+                      <p className="text-text-gray tracking-wide">
+                        <span className="font-medium">花材:</span> {product.specifications.flower_types}
+                      </p>
+                    </div>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-text-dark mb-3 tracking-wide">保存・お手入れ</h4>
+                    <div className="space-y-2">
+                      <p className="text-text-gray tracking-wide">
+                        <span className="font-medium">保存方法:</span> {product.specifications.preservation_method}
+                      </p>
+                      <p className="text-text-gray tracking-wide">
+                        <span className="font-medium">お手入れ:</span> {product.specifications.care_instructions}
+                      </p>
+                      <p className="text-text-gray tracking-wide">
+                        <span className="font-medium">保存期間:</span> {product.specifications.lifespan}
+                      </p>
+                    </div>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-text-dark mb-3 tracking-wide">パッケージ</h4>
+                    <div className="space-y-2">
+                      <p className="text-text-gray tracking-wide">
+                        <span className="font-medium">梱包:</span> {product.specifications.packaging}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>

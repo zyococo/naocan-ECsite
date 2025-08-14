@@ -29,16 +29,20 @@ export const createCustomerPortalSession = async (customerId?: string) => {
     console.log("Creating customer portal session...");
 
     // Netlify FunctionsのAPIを呼び出す
-    const response = await fetch("/.netlify/functions/create-portal-session", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        customer_id: customerId,
-        return_url: window.location.origin,
-      }),
-    });
+    const baseUrl = import.meta.env.DEV ? "http://localhost:8888" : "";
+    const response = await fetch(
+      `${baseUrl}/.netlify/functions/create-portal-session`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          customer_id: customerId,
+          return_url: window.location.origin,
+        }),
+      }
+    );
 
     if (!response.ok) {
       const errorData = await response.json();
@@ -65,8 +69,9 @@ export const createCheckoutSession = async (
     console.log("Creating checkout session...");
 
     // Netlify FunctionsのAPIを呼び出す
+    const baseUrl = import.meta.env.DEV ? "http://localhost:8888" : "";
     const response = await fetch(
-      "/.netlify/functions/create-checkout-session",
+      `${baseUrl}/.netlify/functions/create-checkout-session`,
       {
         method: "POST",
         headers: {

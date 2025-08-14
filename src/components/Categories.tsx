@@ -7,7 +7,7 @@ const Categories = () => {
       id: 1,
       title: 'プリザーブド仏花',
       description: '神社・仏閣での店頭販売、自販機で24時間購入可能',
-      image: 'https://images.pexels.com/photos/1070357/pexels-photo-1070357.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
+      image: '/flowers/buddhist-05.jpg',
       color: 'from-primary-purple to-purple-700',
       link: '/buddhist-flowers'
     },
@@ -15,7 +15,7 @@ const Categories = () => {
       id: 2,
       title: 'プリザーブドフラワー',
       description: '長期間美しさを保つ特別なお花、ギフトに最適',
-      image: 'https://images.pexels.com/photos/931162/pexels-photo-931162.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
+      image: '/flowers/preserved-03.jpg',
       color: 'from-preserved-rose to-pink-700',
       link: '/preserved-flowers'
     }

@@ -11,39 +11,39 @@ const Hero = () => {
   const slides = [
     {
       id: 1,
-      title: '日本初！プリザーブド仏花自動販売機',
-      subtitle: '24時間365日営業',
-      description: '24時間365日、お好きな時間に高品質なプリザーブド仏花をお求めいただけます。従来の菊中心の仏花概念を覆す、"かわいい"を追求した唯一無二のデザインです。',
-      image: 'https://images.pexels.com/photos/931162/pexels-photo-931162.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop',
-      cta: '自販機について',
-      link: '/contact'
-    },
-    {
-      id: 2,
       title: 'プリザーブド仏花',
       subtitle: '関西圏の神社・仏閣で展開',
       description: '京都・東寺、百万遍、東本願寺など関西の名所で、心を込めて作られたプリザーブドフラワーをご提供しています。',
-      image: 'https://images.pexels.com/photos/1070360/pexels-photo-1070360.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop',
+      image: '/flowers/buddhist-03.jpg',
       cta: 'プリザーブド仏花を見る',
       link: '/buddhist-flowers'
+    },
+    {
+      id: 2,
+      title: 'プリザーブドフラワーギフト',
+      subtitle: 'ウエディング・誕生祝い・記念日に',
+      description: 'ウエディングフラワー、Baby誕生祝い、Mother\'s Day特別商品など、特別な日を彩る美しいプリザーブドフラワーギフトをご用意しています。',
+      image: '/flowers/preserved-01.jpg',
+      cta: 'ギフトを見る',
+      link: '/preserved-flowers'
     },
     {
       id: 3,
       title: 'オリジナル花器制作ガイド',
       subtitle: '花言葉から選ぶあなただけの一輪',
       description: '有田焼などの上質な花器から、花言葉やお客様の好みに合わせて、世界に一つだけのオリジナルプリザーブドフラワーをお作りします。',
-      image: 'https://images.pexels.com/photos/1416530/pexels-photo-1416530.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop',
+      image: '/flowers/preserved-02.jpg',
       cta: 'ガイド予約',
       link: '/reservation'
     },
     {
       id: 4,
-      title: 'プリザーブドフラワーギフト',
-      subtitle: 'ウエディング・誕生祝い・記念日に',
-      description: 'ウエディングフラワー、Baby誕生祝い、Mother\'s Day特別商品など、特別な日を彩る美しいプリザーブドフラワーギフトをご用意しています。',
-      image: 'https://images.pexels.com/photos/1198264/pexels-photo-1198264.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop',
-      cta: 'ギフトを見る',
-      link: '/preserved-flowers'
+      title: '日本初！プリザーブド仏花自動販売機',
+      subtitle: '24時間365日営業',
+      description: '24時間365日、お好きな時間に高品質なプリザーブド仏花をお求めいただけます。従来の菊中心の仏花概念を覆す、"かわいい"を追求した唯一無二のデザインです。',
+      image: '/flowers/buddhist-04.jpg',
+      cta: '自販機について',
+      link: '/contact'
     }
   ];
 
@@ -133,7 +133,15 @@ const Hero = () => {
             {/* Background Image */}
             <div
               className="absolute inset-0 bg-cover bg-center bg-no-repeat transform transition-transform duration-1000"
-              style={{ backgroundImage: `url(${slide.image})` }}
+              style={{ 
+                backgroundImage: `url(${slide.image})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
+              }}
+              onError={(e) => {
+                const target = e.target as HTMLDivElement;
+                target.style.backgroundImage = 'url(/header.png)';
+              }}
             >
               <div className="absolute inset-0 bg-black bg-opacity-40"></div>
             </div>
@@ -157,7 +165,7 @@ const Hero = () => {
                   >
                     {slide.cta}
                   </Link>
-                  {slide.id !== 3 && (
+                  {slide.id !== 3 && slide.id !== 4 && (
                     <Link
                       to="/reservation"
                       className="inline-block bg-transparent border-2 border-white text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-white hover:text-primary-dark-green transition-colors duration-300 flex items-center justify-center gap-2"

@@ -19,7 +19,8 @@ const Cart = () => {
     try {
       // まずテストエンドポイントを確認
       console.log('Testing Netlify Functions...');
-      const testResponse = await fetch('/.netlify/functions/test');
+      const baseUrl = import.meta.env.DEV ? 'http://localhost:8888' : '';
+      const testResponse = await fetch(`${baseUrl}/.netlify/functions/test`);
       if (!testResponse.ok) {
         throw new Error(`Netlify Functions test failed: ${testResponse.status}`);
       }
