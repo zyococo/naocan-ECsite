@@ -12,6 +12,7 @@
 - お気に入り機能
 - ガイド予約システム
 - 管理者ダッシュボード
+- AI チャットボット（Gemini API 連携）
 
 ## 環境変数の設定
 
@@ -27,6 +28,12 @@ VITE_SUPABASE_ANON_KEY=your_supabase_anon_key_here
 ```
 VITE_STRIPE_PUBLISHABLE_KEY=pk_test_your_stripe_publishable_key_here
 STRIPE_SECRET_KEY=sk_test_your_stripe_secret_key_here
+```
+
+### Google Cloud Gemini API 設定
+
+```
+VITE_GEMINI_API_KEY=your_gemini_api_key_here
 ```
 
 ## インストール・実行
@@ -57,3 +64,10 @@ npm run dev
 1. `netlify/functions/` ディレクトリに API 関数を配置
 2. `netlify.toml` で設定を管理
 3. 環境変数で Stripe 秘密キーを設定
+
+### Gemini API チャットボットの設定
+
+1. Google Cloud Console で Gemini API を有効化
+2. API キーを取得
+3. 環境変数 `VITE_GEMINI_API_KEY` に設定
+4. チャットボットは画面右下に常時表示され、naocan に関する質問に回答
